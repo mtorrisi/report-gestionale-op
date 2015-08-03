@@ -271,7 +271,7 @@
 				<textElement verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Logo di destinazione]]></text>
+				<text><![CDATA[Luogo di destinazione]]></text>
 			</staticText>
 			<rectangle radius="10">
 				<reportElement x="0" y="160" width="553" height="90" forecolor="#CCCCCC" backcolor="#FFFFFF" uuid="39a03649-f904-4af3-89ef-e7322e5b72a8"/>
