@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ddt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e3b4f04-7b69-4ed1-bcc0-bca4115e4ff1">
 	<property name="ireport.zoom" value="0.931381984588733"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="113"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -52,6 +52,27 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="destinazione" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="pIVASoggetto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CFSoggetto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="indirizzoSoggetto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="CAPSoggetto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="comuneSoggetto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="provinciaSoggetto" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="StatoSoggetto" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="ragioneSociale" class="java.lang.String">
@@ -290,24 +311,19 @@
 			</staticText>
 			<textField>
 				<reportElement x="270" y="15" width="283" height="25" uuid="d50505cd-d40c-4cd9-9bd8-47aaf795f61c"/>
-				<textElement verticalAlignment="Bottom">
+				<textElement verticalAlignment="Top">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ragioneSociale}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="270" y="40" width="283" height="30" uuid="1a0d3f50-5eb4-4f73-b8d8-366827a73319"/>
-				<textElement verticalAlignment="Top"/>
-				<textFieldExpression><![CDATA[$F{destinazione}]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="270" y="112" width="283" height="29" uuid="ac7b283d-42d5-499e-a7f1-bbbe49eec905"/>
-				<textElement verticalAlignment="Top"/>
+				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{destinazione}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="270" y="87" width="283" height="25" uuid="8730532d-940f-470d-87ff-7db39c3419c4"/>
-				<textElement verticalAlignment="Bottom">
+				<textElement verticalAlignment="Top">
 					<font size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ragioneSociale}]]></textFieldExpression>
@@ -404,17 +420,6 @@
 				</textElement>
 				<text><![CDATA[P. I.V.A. Soggetto]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="340" y="170" width="71" height="20" uuid="c7561b70-38bf-4c7b-ba5d-a635572cf9c5"/>
-				<box>
-					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
-				</box>
-				<textElement verticalAlignment="Bottom">
-					<font size="8"/>
-					<paragraph leftIndent="5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[12345678901]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="513" y="160" width="50" height="10" uuid="39f887b8-6806-400d-838c-d182f01fd70a"/>
 				<box>
@@ -473,17 +478,6 @@
 				</textElement>
 				<text><![CDATA[Cod. Fiscale]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="411" y="170" width="102" height="20" uuid="29dd1eb6-d587-436f-9fe0-f86064ab0266"/>
-				<box>
-					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
-				</box>
-				<textElement verticalAlignment="Bottom">
-					<font size="8"/>
-					<paragraph leftIndent="5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[1234567890123456]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="0" y="200" width="340" height="20" uuid="ef8a9e78-2f21-4970-acbc-8f2839740f0f"/>
 				<box>
@@ -602,6 +596,33 @@
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{curaTrasporto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="171" width="71" height="20" uuid="41d41f58-f41a-417e-9a09-88be0e9cf342"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pIVASoggetto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="411" y="171" width="102" height="20" uuid="4ed612e7-cb8b-4446-8deb-5df4c23747eb"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CFSoggetto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="269" y="40" width="283" height="29" uuid="e439ec2f-4749-4863-8715-6220a9d6cdec"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{indirizzoSoggetto} + "\n" + $F{CAPSoggetto} + " " + $F{comuneSoggetto} + " ("+ $F{provinciaSoggetto} +") - " + $F{StatoSoggetto}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -977,8 +998,7 @@
 				<textFieldExpression><![CDATA[$F{vettoreRagioneSociale} + " - " + $F{indirizzoVettore}
 + " - " + $F{CAPVettore} + " - " + $F{comuneVettore}
 + " ("+ $F{provinciaVettore} +") - " + $F{statoVettore}
-+ " - " + $F{PIVAvettore} + " - N.I. Albo: " + $F{alboVettore}
-]]></textFieldExpression>
++ " - " + $F{PIVAvettore} + " - N.I. Albo: " + $F{alboVettore}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="280" y="60" width="136" height="10" uuid="3ea0ae91-7723-49d1-85db-87e7ce68d198"/>
