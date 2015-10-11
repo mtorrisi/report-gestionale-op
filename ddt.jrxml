@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ddt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e3b4f04-7b69-4ed1-bcc0-bca4115e4ff1">
 	<property name="ireport.zoom" value="0.931381984588733"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="192"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -760,7 +760,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{colli}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{colli} != 0 ? $F{colli} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="393" y="0" width="60" height="25" uuid="e5133eb6-0976-4b73-98ff-225d1fe85e24"/>
@@ -771,7 +771,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{pesoLordo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{pesoLordo} != 0 ? $F{pesoLordo} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="493" y="0" width="60" height="25" uuid="1b414051-f2f0-40c6-a037-7473c8f48f6b"/>
@@ -782,7 +782,7 @@
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{pesoNetto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{pesoNetto} != 0 ? $F{pesoNetto} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="453" y="0" width="40" height="25" uuid="432f3e2b-a741-40ae-ae19-96e302a4c869"/>
@@ -793,7 +793,7 @@
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{tara}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{tara} != 0 ? $F{tara} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="285" y="0" width="30" height="25" uuid="b2044648-e144-4eb4-bbe4-2855d20de96b"/>
