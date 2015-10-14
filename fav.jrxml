@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ddt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e3b4f04-7b69-4ed1-bcc0-bca4115e4ff1">
 	<property name="ireport.zoom" value="1.126972201352371"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="190"/>
+	<property name="ireport.y" value="348"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -223,6 +223,15 @@
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="prezzo" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sconto1" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sconto2" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sconto3" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
 	<field name="pedane" class="java.lang.Double">
@@ -561,7 +570,7 @@
 					<font size="8"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{curaTrasporto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{causaleTrasporto}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="280" y="170" width="131" height="20" uuid="41d41f58-f41a-417e-9a09-88be0e9cf342"/>
@@ -672,20 +681,8 @@
 					<font size="6" isBold="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<text><![CDATA[Porto]]></text>
+				<text><![CDATA[Destinatario diverso]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="0" y="291" width="260" height="20" uuid="448c17d0-ef1c-45e4-b17f-3f483e42baef"/>
-				<box>
-					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
-					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
-				</box>
-				<textElement verticalAlignment="Bottom">
-					<font size="8"/>
-					<paragraph leftIndent="5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[$F{curaTrasporto}]]></textFieldExpression>
-			</textField>
 			<textField>
 				<reportElement x="260" y="291" width="292" height="20" uuid="e90d00cc-5d85-4d46-a69a-d4458404177e"/>
 				<box>
@@ -696,7 +693,7 @@
 					<font size="8"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{porto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{destinazione}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="281" width="260" height="10" uuid="51ac7ffb-7db9-4918-a891-99c271db7b0e"/>
@@ -708,7 +705,7 @@
 					<font size="6" isBold="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<text><![CDATA[Spedizione]]></text>
+				<text><![CDATA[Annotazioni]]></text>
 			</staticText>
 		</band>
 	</pageHeader>
@@ -874,7 +871,7 @@
 					<font size="9"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{colli}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{colli} != 0 ? $F{colli} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="352" y="0" width="40" height="25" uuid="e5133eb6-0976-4b73-98ff-225d1fe85e24"/>
@@ -886,7 +883,7 @@
 					<font size="9"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{pesoLordo}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{pesoNetto} != 0 ? $F{pesoNetto} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="440" y="0" width="30" height="25" uuid="1b414051-f2f0-40c6-a037-7473c8f48f6b"/>
@@ -898,7 +895,7 @@
 					<font size="9"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[0]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{sconto1} != 0 ? $F{sconto1} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="391" y="0" width="50" height="25" uuid="432f3e2b-a741-40ae-ae19-96e302a4c869"/>
@@ -910,7 +907,7 @@
 					<font size="9"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[0]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{prezzo} != 0 ? $F{prezzo} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="469" y="0" width="65" height="25" uuid="d0f19203-30cb-488a-bda5-753ba8d263dc"/>
@@ -922,7 +919,7 @@
 					<font size="9"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[0]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{prezzo} != 0 ? ($F{prezzo} * $F{pesoNetto}) - (($F{prezzo} * $F{pesoNetto}) * ($F{sconto1} / 100)) : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="534" y="0" width="20" height="25" uuid="032aa88c-ec1a-49ee-a5fd-d8f8a8e388fd"/>
@@ -934,7 +931,7 @@
 					<font size="9"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[0]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{prezzo} != 0 ? 4 : ""]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -1187,14 +1184,6 @@
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="83" splitType="Stretch">
-			<staticText>
-				<reportElement x="70" y="41" width="215" height="42" uuid="6790531f-5414-4c95-8d6c-1867ef91ecf9"/>
-				<textElement>
-					<paragraph leftIndent="5"/>
-				</textElement>
-				<text><![CDATA[Notifica di spedizione art. 12 D. M. 339/92 Protocollo n.080009999]]></text>
-			</staticText>
-		</band>
+		<band height="83" splitType="Stretch"/>
 	</summary>
 </jasperReport>
