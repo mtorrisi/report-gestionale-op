@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ddt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e3b4f04-7b69-4ed1-bcc0-bca4115e4ff1">
 	<property name="ireport.zoom" value="1.126972201352371"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="204"/>
+	<property name="ireport.y" value="432"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -278,8 +278,7 @@
 	</variable>
 	<variable name="importoSconto" class="java.lang.Float"/>
 	<variable name="totaleIVA" class="java.lang.Float">
-		<variableExpression><![CDATA[$V{imponibileLordo} * 0.04
-]]></variableExpression>
+		<variableExpression><![CDATA[$V{imponibileLordo} * 0.04]]></variableExpression>
 	</variable>
 	<background>
 		<band height="700" splitType="Stretch">
@@ -903,7 +902,7 @@
 					<font size="9"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{prezzo} != 0 ? 04 : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{prezzo} != 0 ? "04" : ""]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
@@ -1196,7 +1195,7 @@
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[04]]></textFieldExpression>
+				<textFieldExpression><![CDATA["04"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="280" y="30" width="30" height="10" uuid="3e5962ab-fd22-4dac-b03b-0cd7c4aa6b0e"/>
@@ -1369,7 +1368,7 @@
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
-					<font size="8" isBold="true"/>
+					<font size="10" isBold="true"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{imponibileLordo} + $V{totaleIVA}]]></textFieldExpression>
@@ -1383,7 +1382,7 @@
 					<font size="6" isBold="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<text><![CDATA[I.V.A.]]></text>
+				<text><![CDATA[Totale da pagare]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="141" y="60" width="59" height="10" uuid="87e7b774-23e2-429f-9df5-5400fcdcd081"/>
@@ -1474,6 +1473,20 @@
 				</textElement>
 				<textFieldExpression><![CDATA[""]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="462" y="70" width="23" height="20" uuid="6fc333b4-f362-4208-b53b-b73256ad6dd3"/>
+				<textElement verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[EUR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="202" y="70" width="23" height="20" uuid="2aede3a1-26ae-415c-9056-c1d7cfb27d21"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<text><![CDATA[EUR]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 	<summary>
