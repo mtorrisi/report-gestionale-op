@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ddt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e3b4f04-7b69-4ed1-bcc0-bca4115e4ff1">
-	<property name="ireport.zoom" value="0.931381984588733"/>
+	<property name="ireport.zoom" value="1.2396694214876038"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="414"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -40,7 +40,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM testata_rigo_view WHERE nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento = $P{tipoDocumento};]]>
+		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo FROM testata_rigo_view LEFT JOIN Articoli ON `RanCodart` = testata_rigo_view.imballo WHERE nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento = $P{tipoDocumento};]]>
 	</queryString>
 	<field name="anno" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -225,6 +225,15 @@
 	<field name="prezzo" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="sconto1" class="java.lang.Float">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sconto2" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="sconto3" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="pedane" class="java.lang.Double">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
@@ -255,6 +264,8 @@
 	<field name="progressivo" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="descrImballo" class="java.lang.String"/>
+	<field name="unitMisImballo" class="java.lang.String"/>
 	<variable name="colli_1" class="java.lang.Integer" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[$F{colli}]]></variableExpression>
 	</variable>
@@ -807,6 +818,53 @@
 				<textFieldExpression><![CDATA[$F{descrizioneVariante}]]></textFieldExpression>
 			</textField>
 		</band>
+		<band height="25">
+			<printWhenExpression><![CDATA[$F{codiceArticolo} != ""]]></printWhenExpression>
+			<textField>
+				<reportElement x="90" y="0" width="225" height="25" uuid="7cdd32bf-92ee-42fc-af2b-a7be9c0e6828"/>
+				<box>
+					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{codiceArticolo} != "") ? $F{descrImballo} : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="90" height="25" uuid="7b6f96a9-333c-4315-b760-0ab49d1ea121"/>
+				<box>
+					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{imballo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="315" y="0" width="40" height="25" uuid="74104b97-8625-4639-82e8-a83eaf206da4"/>
+				<box>
+					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{codiceArticolo} != "") ? $F{unitMisImballo}: ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="355" y="0" width="38" height="25" uuid="918fd6bc-ac87-452d-a089-50bb10b50b51"/>
+				<box>
+					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{colli} != 0 ? $F{colli} : ""]]></textFieldExpression>
+			</textField>
+		</band>
 	</detail>
 	<columnFooter>
 		<band height="5" splitType="Stretch"/>
@@ -999,7 +1057,9 @@
 				<text><![CDATA[Vettore]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="40" width="553" height="20" uuid="109faef2-914e-42f7-95db-e6bb8641cca0"/>
+				<reportElement x="0" y="40" width="553" height="20" uuid="109faef2-914e-42f7-95db-e6bb8641cca0">
+					<printWhenExpression><![CDATA[$F{vettore} != ""]]></printWhenExpression>
+				</reportElement>
 				<textElement verticalAlignment="Bottom">
 					<font size="8"/>
 					<paragraph leftIndent="5"/>
