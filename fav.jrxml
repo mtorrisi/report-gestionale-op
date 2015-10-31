@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ddt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e3b4f04-7b69-4ed1-bcc0-bca4115e4ff1">
 	<property name="ireport.zoom" value="1.126972201352371"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="96"/>
+	<property name="ireport.y" value="240"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -40,7 +40,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo FROM testata_rigo_view LEFT JOIN Articoli ON RanCodart = testata_rigo_view.imballo WHERE nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento= $P{tipoDocumento};]]>
+		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo, ClientiFornitoriDatiAgg.RveCodban AS codiceBancaApp, ClientiFornitoriDatiAgg.RvePagame AS codicePagamento,BancheAppoggio.RbaDescri AS descrizioneBanca, BancheAppoggio.RbaCodabi AS ABI, BancheAppoggio.RbaCodcab AS CAB, Pagamenti.RpaDescri AS descrizionePagamento FROM testata_rigo_view LEFT JOIN Articoli ON RanCodart = testata_rigo_view.imballo LEFT JOIN ClientiFornitoriDatiAgg ON ClientiFornitoriDatiAgg.RveCodclf = testata_rigo_view.codiceSogetto LEFT JOIN BancheAppoggio ON ClientiFornitoriDatiAgg.RveCodban = BancheAppoggio.RbaCodban LEFT JOIN Pagamenti ON ClientiFornitoriDatiAgg.RvePagame = Pagamenti.RpaCodpag WHERE nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento= $P{tipoDocumento};]]>
 	</queryString>
 	<field name="anno" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -266,6 +266,12 @@
 	</field>
 	<field name="descrImballo" class="java.lang.String"/>
 	<field name="unitMisImballo" class="java.lang.String"/>
+	<field name="codiceBancaApp" class="java.lang.String"/>
+	<field name="codicePagamento" class="java.lang.String"/>
+	<field name="descrizioneBanca" class="java.lang.String"/>
+	<field name="ABI" class="java.lang.Integer"/>
+	<field name="CAB" class="java.lang.Integer"/>
+	<field name="descrizionePagamento" class="java.lang.String"/>
 	<variable name="colli_1" class="java.lang.Integer" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[$F{colli}]]></variableExpression>
 	</variable>
@@ -567,7 +573,7 @@
 					<font size="8"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{porto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{porto} != null) ? $F{porto} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="230" width="260" height="20" uuid="9bea6d8f-4763-46f3-a8c3-a43ab79a000b"/>
@@ -579,7 +585,8 @@
 					<font size="8"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{causaleTrasporto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{causaleTrasporto} != null) ? $F{causaleTrasporto} : ""
+]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="280" y="170" width="131" height="20" uuid="41d41f58-f41a-417e-9a09-88be0e9cf342"/>
@@ -630,7 +637,7 @@
 					<font size="8"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{curaTrasporto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{descrizionePagamento}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="260" y="261" width="292" height="20" uuid="89dda353-cc34-46f0-b628-73d2dd4831aa"/>
@@ -642,7 +649,7 @@
 					<font size="8"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{porto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{descrizioneBanca} + " - " + $F{ABI} + "/"  + $F{CAB}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="80" y="251" width="180" height="10" uuid="65543792-443c-4dde-83f7-3d9ee079fdc2"/>
@@ -666,7 +673,7 @@
 					<font size="8"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{curaTrasporto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{codicePagamento}]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="0" y="251" width="80" height="10" uuid="641001ca-2846-4a46-8485-7dab57062aed"/>
@@ -870,7 +877,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{sconto1} != 0 ? $F{sconto1} : ""]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement x="391" y="0" width="50" height="25" uuid="432f3e2b-a741-40ae-ae19-96e302a4c869"/>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -882,7 +889,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{prezzo} != 0 ? $F{prezzo} : ""]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement x="469" y="0" width="65" height="25" uuid="d0f19203-30cb-488a-bda5-753ba8d263dc"/>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -916,6 +923,7 @@
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($F{codiceArticolo} != "") ? $F{unitMisImballo}: ""]]></textFieldExpression>
@@ -927,6 +935,7 @@
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
 				<textElement verticalAlignment="Middle">
+					<font size="9"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{imballo}]]></textFieldExpression>
@@ -938,6 +947,7 @@
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
 				<textElement verticalAlignment="Middle">
+					<font size="9"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($F{codiceArticolo} != "") ? $F{descrImballo} : ""]]></textFieldExpression>
@@ -949,6 +959,7 @@
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{colli} != 0 ? $F{colli} : ""]]></textFieldExpression>
@@ -1036,7 +1047,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[""]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement x="180" y="10" width="70" height="20" uuid="a711c3a4-6dac-4f98-bb8c-a2fc74462ba5"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
@@ -1312,7 +1323,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[""]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement x="400" y="40" width="80" height="20" uuid="c7948195-42dd-4379-b06b-f76b4d2d76bf"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
@@ -1356,14 +1367,14 @@
 				</textElement>
 				<text><![CDATA[Totale I.V.A.]]></text>
 			</staticText>
-			<textField>
+			<textField pattern="###0.00;-###0.00">
 				<reportElement x="1" y="70" width="70" height="20" uuid="c6148db9-0e29-4ea5-ab54-a2312379d798"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font size="8"/>
-					<paragraph leftIndent="5"/>
+					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{imponibileLordo}]]></textFieldExpression>
 			</textField>
@@ -1463,7 +1474,7 @@
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font size="8" isBold="false"/>
-					<paragraph leftIndent="5"/>
+					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totaleIVA}]]></textFieldExpression>
 			</textField>
