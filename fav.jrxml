@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ddt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e3b4f04-7b69-4ed1-bcc0-bca4115e4ff1">
 	<property name="ireport.zoom" value="1.126972201352371"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="240"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -40,7 +40,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo, ClientiFornitoriDatiAgg.RveCodban AS codiceBancaApp, ClientiFornitoriDatiAgg.RvePagame AS codicePagamento,BancheAppoggio.RbaDescri AS descrizioneBanca, BancheAppoggio.RbaCodabi AS ABI, BancheAppoggio.RbaCodcab AS CAB, Pagamenti.RpaDescri AS descrizionePagamento FROM testata_rigo_view LEFT JOIN Articoli ON RanCodart = testata_rigo_view.imballo LEFT JOIN ClientiFornitoriDatiAgg ON ClientiFornitoriDatiAgg.RveCodclf = testata_rigo_view.codiceSogetto LEFT JOIN BancheAppoggio ON ClientiFornitoriDatiAgg.RveCodban = BancheAppoggio.RbaCodban LEFT JOIN Pagamenti ON ClientiFornitoriDatiAgg.RvePagame = Pagamenti.RpaCodpag WHERE nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento= $P{tipoDocumento};]]>
+		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo, ClientiFornitoriDatiAgg.RveCodban AS codiceBancaApp, ClientiFornitoriDatiAgg.RvePagame AS codicePagamento,BancheAppoggio.RbaDescri AS descrizioneBanca, BancheAppoggio.RbaCodabi AS ABI, BancheAppoggio.RbaCodcab AS CAB, Pagamenti.RpaDescri AS descrizionePagamento, associato.ragione_sociale AS associatoRagSoc, associato.partita_iva AS associatoPIVA, associato.indirizzo AS associatoIndirizzo, associato.telefono AS associatoTelefono,associato.email AS associatoEmail FROM testata_rigo_view LEFT JOIN Articoli ON RanCodart = testata_rigo_view.imballo LEFT JOIN ClientiFornitoriDatiAgg ON ClientiFornitoriDatiAgg.RveCodclf = testata_rigo_view.codiceSogetto LEFT JOIN BancheAppoggio ON ClientiFornitoriDatiAgg.RveCodban = BancheAppoggio.RbaCodban LEFT JOIN Pagamenti ON ClientiFornitoriDatiAgg.RvePagame = Pagamenti.RpaCodpag LEFT JOIN associato ON associato.id = testata_rigo_view.idAssociato WHERE nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento= $P{tipoDocumento};]]>
 	</queryString>
 	<field name="anno" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -272,6 +272,11 @@
 	<field name="ABI" class="java.lang.Integer"/>
 	<field name="CAB" class="java.lang.Integer"/>
 	<field name="descrizionePagamento" class="java.lang.String"/>
+	<field name="associatoRagSoc" class="java.lang.String"/>
+	<field name="associatoPIVA" class="java.lang.String"/>
+	<field name="associatoIndirizzo" class="java.lang.String"/>
+	<field name="associatoTelefono" class="java.lang.String"/>
+	<field name="associatoEmail" class="java.lang.String"/>
 	<variable name="colli_1" class="java.lang.Integer" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[$F{colli}]]></variableExpression>
 	</variable>
@@ -328,7 +333,7 @@
 				<reportElement x="260" y="0" width="293" height="151" forecolor="#CCCCCC" backcolor="#FFFFFF" uuid="4598619b-281e-4db3-b5b3-dc795bf86ce4"/>
 			</rectangle>
 			<image>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="200" height="100" uuid="f55d75ae-b239-4079-be7c-471b99ce796a"/>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="-15" width="200" height="70" uuid="f55d75ae-b239-4079-be7c-471b99ce796a"/>
 				<imageExpression><![CDATA["./images/opnatura-logo1.jpg"]]></imageExpression>
 			</image>
 			<line>
@@ -350,7 +355,7 @@
 			</textField>
 			<textField>
 				<reportElement x="270" y="112" width="283" height="29" uuid="ac7b283d-42d5-499e-a7f1-bbbe49eec905"/>
-				<textElement verticalAlignment="Bottom"/>
+				<textElement verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{destinazione}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -585,8 +590,7 @@
 					<font size="8"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[($F{causaleTrasporto} != null) ? $F{causaleTrasporto} : ""
-]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{causaleTrasporto} != null) ? $F{causaleTrasporto} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="280" y="170" width="131" height="20" uuid="41d41f58-f41a-417e-9a09-88be0e9cf342"/>
@@ -687,6 +691,20 @@
 				</textElement>
 				<text><![CDATA[Cod.Pagamento	]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="2" y="117" width="260" height="48" uuid="a921e0c3-5064-439b-9155-669aa316862d"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Su conferimento di: \n" + $F{associatoRagSoc} + ", " + $F{associatoIndirizzo} + "\nP. IVA: " + $F{associatoPIVA} + (($F{associatoTelefono} != "") ? ", Tel. " + $F{associatoTelefono} : "" ) + "\n" + $F{associatoEmail}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="2" y="55" width="248" height="62" uuid="2b14c9aa-4589-415a-ba01-a4b879e59aa5"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Via Pietro Mancini, 11\n89024 Polistena(RC) Italy\nTel +39 0966 930031 FAX +39 0966 937890\nP. IVA 02741250803\nNum. Iscr. Albo Coop. A222959\nB.N.D.O.O. n° 0113835 - R.U.P. n° 18/1380\ninfo@opnatura.com"]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageHeader>
 	<columnHeader>

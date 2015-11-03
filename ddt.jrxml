@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ddt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e3b4f04-7b69-4ed1-bcc0-bca4115e4ff1">
 	<property name="ireport.zoom" value="1.2396694214876038"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="30"/>
+	<property name="ireport.y" value="0"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -40,7 +40,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo FROM testata_rigo_view LEFT JOIN Articoli ON `RanCodart` = testata_rigo_view.imballo WHERE nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento = $P{tipoDocumento};]]>
+		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo, associato.ragione_sociale AS associatoRagSoc, associato.partita_iva AS associatoPIVA, associato.indirizzo AS associatoIndirizzo, associato.telefono AS associatoTelefono,associato.email AS associatoEmail FROM testata_rigo_view LEFT JOIN Articoli ON `RanCodart` = testata_rigo_view.imballo LEFT JOIN associato ON associato.id = testata_rigo_view.idAssociato WHERE nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento = $P{tipoDocumento};]]>
 	</queryString>
 	<field name="anno" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -266,6 +266,11 @@
 	</field>
 	<field name="descrImballo" class="java.lang.String"/>
 	<field name="unitMisImballo" class="java.lang.String"/>
+	<field name="associatoRagSoc" class="java.lang.String"/>
+	<field name="associatoPIVA" class="java.lang.String"/>
+	<field name="associatoIndirizzo" class="java.lang.String"/>
+	<field name="associatoTelefono" class="java.lang.String"/>
+	<field name="associatoEmail" class="java.lang.String"/>
 	<variable name="colli_1" class="java.lang.Integer" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[$F{colli}]]></variableExpression>
 	</variable>
@@ -309,7 +314,7 @@
 				<reportElement x="260" y="0" width="293" height="151" forecolor="#CCCCCC" backcolor="#FFFFFF" uuid="4598619b-281e-4db3-b5b3-dc795bf86ce4"/>
 			</rectangle>
 			<image>
-				<reportElement x="0" y="-5" width="200" height="100" uuid="f55d75ae-b239-4079-be7c-471b99ce796a"/>
+				<reportElement x="0" y="-19" width="200" height="70" uuid="f55d75ae-b239-4079-be7c-471b99ce796a"/>
 				<imageExpression><![CDATA["./images/opnatura-logo1.jpg"]]></imageExpression>
 			</image>
 			<line>
@@ -331,7 +336,7 @@
 			</textField>
 			<textField>
 				<reportElement x="270" y="112" width="283" height="29" uuid="ac7b283d-42d5-499e-a7f1-bbbe49eec905"/>
-				<textElement verticalAlignment="Bottom"/>
+				<textElement verticalAlignment="Top"/>
 				<textFieldExpression><![CDATA[$F{destinazione}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -636,6 +641,20 @@
 				<reportElement x="269" y="40" width="283" height="29" uuid="e439ec2f-4749-4863-8715-6220a9d6cdec"/>
 				<textElement verticalAlignment="Bottom"/>
 				<textFieldExpression><![CDATA[$F{indirizzoSoggetto} + "\n" + $F{CAPSoggetto} + " " + $F{comuneSoggetto} + " ("+ $F{provinciaSoggetto} +") - " + $F{StatoSoggetto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="50" width="248" height="62" uuid="b7597a32-8be1-41da-8793-3b983492b131"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Via Pietro Mancini, 11\n89024 Polistena(RC) Italy\nTel +39 0966 930031 FAX +39 0966 937890\nP. IVA 02741250803\nNum. Iscr. Albo Coop. A222959\nB.N.D.O.O. n° 0113835 - R.U.P. n° 18/1380\ninfo@opnatura.com"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="112" width="260" height="48" uuid="5bfd03e8-5550-4e1e-a721-8ff28466ba2f"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Su conferimento di: \n" + $F{associatoRagSoc} + ", " + $F{associatoIndirizzo} + "\nP. IVA: " + $F{associatoPIVA} + (($F{associatoTelefono} != "") ? ", Tel. " + $F{associatoTelefono} : "" ) + "\n" + $F{associatoEmail}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
