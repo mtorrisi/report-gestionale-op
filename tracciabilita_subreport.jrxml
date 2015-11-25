@@ -46,7 +46,7 @@ WHERE
 	<detail>
 		<band height="42" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="36" y="1" width="71" height="20" backcolor="#CCFFCC" uuid="1b579be8-3f8b-4fde-9e8e-e673a7463270"/>
+				<reportElement mode="Opaque" x="36" y="1" width="80" height="20" backcolor="#CCFFCC" uuid="1b579be8-3f8b-4fde-9e8e-e673a7463270"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 					<paragraph leftIndent="5"/>
@@ -54,7 +54,7 @@ WHERE
 				<text><![CDATA[Lotto grezzo:]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="107" y="1" width="219" height="20" backcolor="#CCFFCC" uuid="c5a733d9-a738-4dfd-bbaa-3321570fc3ed"/>
+				<reportElement mode="Opaque" x="116" y="1" width="210" height="20" backcolor="#CCFFCC" uuid="c5a733d9-a738-4dfd-bbaa-3321570fc3ed"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{TracciabilitaGrezzi_lotto_grezzo}]]></textFieldExpression>
 			</textField>
@@ -71,7 +71,7 @@ WHERE
 				<text><![CDATA[Kg utilizzati:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="36" y="21" width="71" height="20" backcolor="#CCFFCC" uuid="94f5cd6b-d14e-42b5-83cc-d1e6a3e2a460"/>
+				<reportElement mode="Opaque" x="36" y="21" width="80" height="20" backcolor="#CCFFCC" uuid="94f5cd6b-d14e-42b5-83cc-d1e6a3e2a460"/>
 				<textElement verticalAlignment="Middle">
 					<font isBold="true"/>
 					<paragraph leftIndent="5"/>
@@ -79,7 +79,7 @@ WHERE
 				<text><![CDATA[Produttore:]]></text>
 			</staticText>
 			<textField>
-				<reportElement mode="Opaque" x="107" y="21" width="219" height="20" backcolor="#CCFFCC" uuid="6a7da7b2-2b90-493b-a54a-3eae71bb438a"/>
+				<reportElement mode="Opaque" x="116" y="21" width="210" height="20" backcolor="#CCFFCC" uuid="6a7da7b2-2b90-493b-a54a-3eae71bb438a"/>
 				<textElement verticalAlignment="Middle"/>
 				<textFieldExpression><![CDATA[$F{TracciabilitaGrezzi_produttore}]]></textFieldExpression>
 			</textField>
