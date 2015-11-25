@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="tracciabilita_subreport1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="1e92acc6-bcb2-454a-b445-5f4f9fe257ce">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id_scheda_tacciabilita" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     TracciabilitaGrezzi.`id` AS TracciabilitaGrezzi_id,
+     TracciabilitaGrezzi.`lotto_grezzo` AS TracciabilitaGrezzi_lotto_grezzo,
+     TracciabilitaGrezzi.`prodotto` AS TracciabilitaGrezzi_prodotto,
+     TracciabilitaGrezzi.`kg` AS TracciabilitaGrezzi_kg,
+     TracciabilitaGrezzi.`produttore` AS TracciabilitaGrezzi_produttore,
+     TracciabilitaGrezzi.`foglio` AS TracciabilitaGrezzi_foglio,
+     TracciabilitaGrezzi.`particella` AS TracciabilitaGrezzi_particella,
+     TracciabilitaGrezzi.`id_scheda_tracciabilita` AS TracciabilitaGrezzi_id_scheda_tracciabilita
+FROM
+     `TracciabilitaGrezzi` TracciabilitaGrezzi
+WHERE
+     id_scheda_tracciabilita = $P{id_scheda_tacciabilita}]]>
+	</queryString>
+	<field name="TracciabilitaGrezzi_id" class="java.lang.Integer"/>
+	<field name="TracciabilitaGrezzi_lotto_grezzo" class="java.lang.String"/>
+	<field name="TracciabilitaGrezzi_prodotto" class="java.lang.String"/>
+	<field name="TracciabilitaGrezzi_kg" class="java.lang.Double"/>
+	<field name="TracciabilitaGrezzi_produttore" class="java.lang.String"/>
+	<field name="TracciabilitaGrezzi_foglio" class="java.lang.Integer"/>
+	<field name="TracciabilitaGrezzi_particella" class="java.lang.Integer"/>
+	<field name="TracciabilitaGrezzi_id_scheda_tracciabilita" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="7" y="0" width="292" height="20" uuid="71ca550a-91fd-493e-b13c-d958d1ae9921"/>
+				<textElement verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PRODOTTI GREZZI UTILIZZATI]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="36" y="1" width="71" height="20" backcolor="#CCFFCC" uuid="1b579be8-3f8b-4fde-9e8e-e673a7463270"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Lotto grezzo:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="107" y="1" width="219" height="20" backcolor="#CCFFCC" uuid="c5a733d9-a738-4dfd-bbaa-3321570fc3ed"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TracciabilitaGrezzi_lotto_grezzo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Opaque" x="409" y="1" width="106" height="20" backcolor="#CCFFCC" uuid="ff248d73-aef1-43d0-8451-4326bee1faa0"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TracciabilitaGrezzi_kg}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="326" y="1" width="83" height="20" backcolor="#CCFFCC" uuid="9b115f90-602f-442a-9c8e-af3245571700"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Kg utilizzati:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="36" y="21" width="71" height="20" backcolor="#CCFFCC" uuid="94f5cd6b-d14e-42b5-83cc-d1e6a3e2a460"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Produttore:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="107" y="21" width="219" height="20" backcolor="#CCFFCC" uuid="6a7da7b2-2b90-493b-a54a-3eae71bb438a"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TracciabilitaGrezzi_produttore}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="326" y="21" width="41" height="20" backcolor="#CCFFCC" uuid="77673650-be18-4261-a204-b90d408e51ed"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Foglio:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="367" y="21" width="42" height="20" backcolor="#CCFFCC" uuid="47fd27a8-5cff-443c-8797-6100a07e4c34"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TracciabilitaGrezzi_foglio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="409" y="21" width="55" height="20" backcolor="#CCFFCC" uuid="6411f390-fbee-4370-9a64-292a32e18e57"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Particella:]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Opaque" x="464" y="21" width="51" height="20" backcolor="#CCFFCC" uuid="5dc80c51-75cc-4843-8f8c-f1bc95e5837f"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{TracciabilitaGrezzi_particella}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
