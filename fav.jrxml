@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ddt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e3b4f04-7b69-4ed1-bcc0-bca4115e4ff1">
 	<property name="ireport.zoom" value="1.126972201352371"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="217"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -40,7 +40,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo, ClientiFornitoriDatiAgg.RveCodban AS codiceBancaApp, ClientiFornitoriDatiAgg.RvePagame AS codicePagamento,BancheAppoggio.RbaDescri AS descrizioneBanca, BancheAppoggio.RbaCodabi AS ABI, BancheAppoggio.RbaCodcab AS CAB, Pagamenti.RpaDescri AS descrizionePagamento, associato.ragione_sociale AS associatoRagSoc, associato.partita_iva AS associatoPIVA, associato.indirizzo AS associatoIndirizzo, associato.telefono AS associatoTelefono,associato.email AS associatoEmail FROM testata_rigo_view LEFT JOIN Articoli ON RanCodart = testata_rigo_view.imballo LEFT JOIN ClientiFornitoriDatiAgg ON ClientiFornitoriDatiAgg.RveCodclf = testata_rigo_view.codiceSogetto LEFT JOIN BancheAppoggio ON ClientiFornitoriDatiAgg.RveCodban = BancheAppoggio.RbaCodban LEFT JOIN Pagamenti ON ClientiFornitoriDatiAgg.RvePagame = Pagamenti.RpaCodpag LEFT JOIN associato ON associato.id = testata_rigo_view.idAssociato WHERE nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento= $P{tipoDocumento};]]>
+		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo, ClientiFornitoriDatiAgg.RveCodban AS codiceBancaApp, ClientiFornitoriDatiAgg.RvePagame AS codicePagamento, ClientiFornitoriDatiAgg.RveEsenzi AS codiceEsenzione, BancheAppoggio.RbaDescri AS descrizioneBanca, BancheAppoggio.RbaCodabi AS ABI, BancheAppoggio.RbaCodcab AS CAB, Pagamenti.RpaDescri AS descrizionePagamento, associato.ragione_sociale AS associatoRagSoc, associato.partita_iva AS associatoPIVA, associato.indirizzo AS associatoIndirizzo, associato.telefono AS associatoTelefono,associato.email AS associatoEmail, VociIva.RiaAliquo AS aliquota, VociIva.RiaDescri AS descrBreveIVA, VociIva.RiaDesdoc AS descrDocIVA FROM testata_rigo_view LEFT JOIN Articoli ON RanCodart = testata_rigo_view.imballo LEFT JOIN ClientiFornitoriDatiAgg ON ClientiFornitoriDatiAgg.RveCodclf = testata_rigo_view.codiceSogetto LEFT JOIN VociIva ON ClientiFornitoriDatiAgg.RveEsenzi = VociIva.RiaCodiva LEFT JOIN BancheAppoggio ON ClientiFornitoriDatiAgg.RveCodban = BancheAppoggio.RbaCodban LEFT JOIN Pagamenti ON ClientiFornitoriDatiAgg.RvePagame = Pagamenti.RpaCodpag LEFT JOIN associato ON associato.id = testata_rigo_view.idAssociato WHERE nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento= $P{tipoDocumento};]]>
 	</queryString>
 	<field name="anno" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -268,6 +268,7 @@
 	<field name="unitMisImballo" class="java.lang.String"/>
 	<field name="codiceBancaApp" class="java.lang.String"/>
 	<field name="codicePagamento" class="java.lang.String"/>
+	<field name="codiceEsenzione" class="java.lang.String"/>
 	<field name="descrizioneBanca" class="java.lang.String"/>
 	<field name="ABI" class="java.lang.Integer"/>
 	<field name="CAB" class="java.lang.Integer"/>
@@ -277,6 +278,9 @@
 	<field name="associatoIndirizzo" class="java.lang.String"/>
 	<field name="associatoTelefono" class="java.lang.String"/>
 	<field name="associatoEmail" class="java.lang.String"/>
+	<field name="aliquota" class="java.lang.Double"/>
+	<field name="descrBreveIVA" class="java.lang.String"/>
+	<field name="descrDocIVA" class="java.lang.String"/>
 	<variable name="colli_1" class="java.lang.Integer" resetType="Column" calculation="Sum">
 		<variableExpression><![CDATA[$F{colli}]]></variableExpression>
 	</variable>
@@ -291,36 +295,36 @@
 	</variable>
 	<variable name="importoSconto" class="java.lang.Float"/>
 	<variable name="totaleIVA" class="java.lang.Float">
-		<variableExpression><![CDATA[$V{imponibileLordo} * 0.04]]></variableExpression>
+		<variableExpression><![CDATA[($F{codiceEsenzione} != "") ? ($V{imponibileLordo} * ($F{aliquota} / 100)) : $V{imponibileLordo} * 0.04]]></variableExpression>
 	</variable>
 	<background>
 		<band height="700" splitType="Stretch">
 			<rectangle radius="10">
-				<reportElement x="0" y="293" width="553" height="400" forecolor="#CCCCCC" uuid="63fc3467-f104-4526-8f86-0e7012cfeb80"/>
+				<reportElement x="0" y="293" width="553" height="380" forecolor="#CCCCCC" uuid="63fc3467-f104-4526-8f86-0e7012cfeb80"/>
 			</rectangle>
 			<line>
-				<reportElement x="70" y="293" width="1" height="400" forecolor="#CCCCCC" uuid="400c0e2e-bdb4-4b74-b9ae-dbe843fecbed"/>
+				<reportElement x="70" y="293" width="1" height="380" forecolor="#CCCCCC" uuid="400c0e2e-bdb4-4b74-b9ae-dbe843fecbed"/>
 			</line>
 			<line>
-				<reportElement x="285" y="293" width="1" height="400" forecolor="#CCCCCC" uuid="3532249d-e442-49f3-bab4-3f17d693775d"/>
+				<reportElement x="285" y="293" width="1" height="380" forecolor="#CCCCCC" uuid="3532249d-e442-49f3-bab4-3f17d693775d"/>
 			</line>
 			<line>
-				<reportElement x="319" y="293" width="1" height="400" forecolor="#CCCCCC" uuid="62b1dff1-44bd-4a7a-91e0-cf035a5264ed"/>
+				<reportElement x="319" y="293" width="1" height="380" forecolor="#CCCCCC" uuid="62b1dff1-44bd-4a7a-91e0-cf035a5264ed"/>
 			</line>
 			<line>
-				<reportElement x="352" y="293" width="1" height="400" forecolor="#CCCCCC" uuid="a3c36560-0a22-4760-ba46-dfeff8804d86"/>
+				<reportElement x="352" y="293" width="1" height="380" forecolor="#CCCCCC" uuid="a3c36560-0a22-4760-ba46-dfeff8804d86"/>
 			</line>
 			<line>
-				<reportElement x="392" y="293" width="1" height="400" forecolor="#CCCCCC" uuid="f55f4f21-7d38-4faa-b587-9c1518cffdaa"/>
+				<reportElement x="392" y="293" width="1" height="380" forecolor="#CCCCCC" uuid="f55f4f21-7d38-4faa-b587-9c1518cffdaa"/>
 			</line>
 			<line>
-				<reportElement x="441" y="293" width="1" height="400" forecolor="#CCCCCC" uuid="f37cc850-b1d2-46e6-a040-b35036a0afa3"/>
+				<reportElement x="441" y="293" width="1" height="380" forecolor="#CCCCCC" uuid="f37cc850-b1d2-46e6-a040-b35036a0afa3"/>
 			</line>
 			<line>
-				<reportElement x="470" y="293" width="1" height="400" forecolor="#CCCCCC" uuid="ca976591-2d2c-4f0f-9892-ba02297cb94f"/>
+				<reportElement x="470" y="293" width="1" height="380" forecolor="#CCCCCC" uuid="ca976591-2d2c-4f0f-9892-ba02297cb94f"/>
 			</line>
 			<line>
-				<reportElement x="535" y="293" width="1" height="400" forecolor="#CCCCCC" uuid="246b8df1-6fdb-4bed-a49f-d0bae78eaba7"/>
+				<reportElement x="535" y="293" width="1" height="380" forecolor="#CCCCCC" uuid="246b8df1-6fdb-4bed-a49f-d0bae78eaba7"/>
 			</line>
 		</band>
 	</background>
@@ -823,7 +827,7 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{codiceArticolo}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true">
 				<reportElement x="70" y="0" width="185" height="25" uuid="60e3806b-05d3-4827-92f3-de12e5a6b765"/>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -929,7 +933,7 @@
 					<font size="9"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{prezzo} != 0 ? "04" : ""]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{prezzo} != 0) ? (($F{codiceEsenzione} != "") ? $F{codiceEsenzione} : "04") : ""]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="25">
@@ -984,11 +988,8 @@
 			</textField>
 		</band>
 	</detail>
-	<columnFooter>
-		<band height="5" splitType="Stretch"/>
-	</columnFooter>
 	<pageFooter>
-		<band height="94" splitType="Stretch">
+		<band height="124" splitType="Stretch">
 			<rectangle radius="10">
 				<reportElement x="0" y="0" width="553" height="92" forecolor="#CCCCCC" backcolor="#FFFFFF" uuid="dadff127-c1b8-4419-9ece-234cea73d4eb"/>
 			</rectangle>
@@ -1229,7 +1230,7 @@
 					<font size="8"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Imponibile 4%"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{codiceEsenzione} != "") ? $F{descrBreveIVA} : "Imponibile 4%"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="140" y="30" width="70" height="10" uuid="12a7f1d5-436c-41df-8295-350ec4776f0c"/>
@@ -1273,7 +1274,7 @@
 					<font size="8" isBold="false"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA["04"]]></textFieldExpression>
+				<textFieldExpression><![CDATA[($F{codiceEsenzione} != "") ? $F{codiceEsenzione} : "04"]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="280" y="30" width="30" height="10" uuid="3e5962ab-fd22-4dac-b03b-0cd7c4aa6b0e"/>
@@ -1330,17 +1331,6 @@
 				</textElement>
 				<text><![CDATA[I.V.A.]]></text>
 			</staticText>
-			<textField pattern="dd/MM/yyyy HH.mm.ss">
-				<reportElement x="470" y="20" width="90" height="20" uuid="0378ad38-ded3-4a35-be13-46fbe27d92cc"/>
-				<box>
-					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
-				</box>
-				<textElement verticalAlignment="Bottom">
-					<font size="8"/>
-					<paragraph leftIndent="5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[""]]></textFieldExpression>
-			</textField>
 			<textField pattern="###0.00;-###0.00">
 				<reportElement x="400" y="40" width="80" height="20" uuid="c7948195-42dd-4379-b06b-f76b4d2d76bf"/>
 				<box>
@@ -1565,6 +1555,13 @@
 				</textElement>
 				<text><![CDATA[EUR]]></text>
 			</staticText>
+			<textField>
+				<reportElement x="0" y="92" width="555" height="32" uuid="c7a98a9b-8637-409e-9f72-2880d7295aff"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{descrDocIVA} != null ? $F{descrDocIVA} : ""]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<summary>
