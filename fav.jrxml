@@ -937,7 +937,7 @@
 			</textField>
 		</band>
 		<band height="25">
-			<printWhenExpression><![CDATA[$F{codiceArticolo} != ""]]></printWhenExpression>
+			<printWhenExpression><![CDATA[$F{codiceArticolo} != "" && $F{imballo} != ""]]></printWhenExpression>
 			<textField>
 				<reportElement x="285" y="0" width="32" height="25" uuid="524a6d11-11fc-451a-ae19-5958a0f3e5d8"/>
 				<box>
