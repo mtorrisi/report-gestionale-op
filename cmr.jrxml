@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2016-08-30T12:19:32 -->
+<!-- 2016-08-30T12:36:00 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cmr" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="45f36d2c-9b6d-4ec9-9d04-2f658e433f62">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<style name="Crosstab_CH" mode="Opaque" backcolor="#F0F8FF">
@@ -36,13 +36,10 @@
 			<line>
 				<reportElement x="221" y="0" width="1" height="310" uuid="556402ff-71b0-463f-825b-ec6872d01327"/>
 			</line>
-			<ellipse>
-				<reportElement mode="Transparent" x="340" y="31" width="74" height="40" uuid="97574281-f5ee-4eb6-bf69-a4c387a3edb4"/>
-			</ellipse>
 			<staticText>
-				<reportElement x="355" y="31" width="44" height="39" uuid="27d9d133-74b4-4779-94eb-35303ba9417c"/>
+				<reportElement x="203" y="104" width="113" height="79" forecolor="rgba(0, 0, 0, 0.32156864)" uuid="27d9d133-74b4-4779-94eb-35303ba9417c"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="Arial" size="38" isBold="true"/>
 				</textElement>
 				<text><![CDATA[CMR]]></text>
 			</staticText>
@@ -55,12 +52,12 @@
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Copia per il "+ $P{sender}.get(0) + " - Exemplaire de "+ $P{sender}.get(1) + " - Copy for " +  $P{sender}.get(2)]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Esemplare per "+ $P{sender}.get(0) + " - Exemplaire pour "+ $P{sender}.get(1) + " - Copy for " +  $P{sender}.get(2)]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
 	<detail>
-		<band height="801" splitType="Stretch">
+		<band height="790" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="10" width="16" height="14" uuid="7fcd0d3c-7fef-4ad6-bb07-8702bd403b74"/>
 				<box>
@@ -346,13 +343,13 @@
 				<text><![CDATA[9]]></text>
 			</staticText>
 			<line>
-				<reportElement x="87" y="309" width="1" height="122" uuid="f7b97473-64ed-47ad-95b3-e74d07c5e922"/>
+				<reportElement x="87" y="309" width="1" height="129" uuid="f7b97473-64ed-47ad-95b3-e74d07c5e922"/>
 			</line>
 			<line>
-				<reportElement x="168" y="309" width="1" height="122" uuid="b3b4962b-3f06-4728-8e1a-c30f70e38a44"/>
+				<reportElement x="168" y="309" width="1" height="129" uuid="b3b4962b-3f06-4728-8e1a-c30f70e38a44"/>
 			</line>
 			<line>
-				<reportElement x="244" y="309" width="1" height="122" uuid="fee5f988-ee32-494f-b3f4-a026ada901f4"/>
+				<reportElement x="244" y="309" width="1" height="129" uuid="fee5f988-ee32-494f-b3f4-a026ada901f4"/>
 			</line>
 			<line>
 				<reportElement x="350" y="309" width="1" height="151" uuid="07ff6953-d910-423e-840b-b8b7a0006236"/>
@@ -427,33 +424,30 @@
 				<reportElement x="1" y="459" width="550" height="1" uuid="92fbad8f-07bb-4c2c-b9fe-406f639540bd"/>
 			</line>
 			<line>
-				<reportElement x="0" y="430" width="349" height="1" uuid="630d53ea-9545-4181-b076-b50c5e7f615a"/>
+				<reportElement x="0" y="438" width="349" height="1" uuid="630d53ea-9545-4181-b076-b50c5e7f615a"/>
 			</line>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="0" y="430" width="30" height="28" uuid="ea26b1b8-de4f-4390-83e5-2b62d361987d"/>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="440" width="50" height="18" uuid="ea26b1b8-de4f-4390-83e5-2b62d361987d"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="7" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Classe
-Classe
+				<text><![CDATA[Classe / Classe
 Class]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="120" y="430" width="30" height="28" uuid="1ceb35ea-e826-4156-9bf2-e57a2b8f14a4"/>
+				<reportElement stretchType="RelativeToTallestObject" x="120" y="440" width="48" height="18" uuid="1ceb35ea-e826-4156-9bf2-e57a2b8f14a4"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="7" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Cifre
-Cifre
+				<text><![CDATA[Cifra / Chiffre
 Numbers]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="244" y="432" width="30" height="28" uuid="1a3cbc9a-d040-45ae-9e74-1464685d9abf"/>
+				<reportElement stretchType="RelativeToTallestObject" x="244" y="440" width="61" height="19" uuid="1a3cbc9a-d040-45ae-9e74-1464685d9abf"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="7" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Lettere
-Lettres
+				<text><![CDATA[Lettere / Lettres
 Letters]]></text>
 			</staticText>
 			<line>
@@ -854,17 +848,24 @@ Not free]]></text>
 					<font fontName="Arial" size="7" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Targa Motrice
-Plaque d'immatriculation d'entraînement
+Numero d'immatriculation de la motirce
 Driving license plate]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="185" y="762" width="120" height="28" uuid="d1ceadf8-4bdb-4a9c-b276-7a8d38d08586"/>
+				<reportElement stretchType="RelativeToTallestObject" x="185" y="762" width="130" height="28" uuid="d1ceadf8-4bdb-4a9c-b276-7a8d38d08586"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Arial" size="7" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Targa rimorchio
-Plaque d'immatriculation de la remorque
+Numero d'immatriculation de la remorque
 Trailer license plate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="348" y="30" width="100" height="31" uuid="137a587f-2adb-4654-9c8e-0896d6c48dc7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[N.]]></text>
 			</staticText>
 		</band>
 	</detail>
