@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cmr1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="5" uuid="92f70c26-25c5-499a-addc-09689b4affc9">
-	<property name="ireport.zoom" value="1.3310000000000162"/>
-	<property name="ireport.x" value="11"/>
+	<property name="ireport.zoom" value="1.9487171000000243"/>
+	<property name="ireport.x" value="26"/>
 	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
-	<parameter name="sender" class="java.util.List"/>
-	<parameter name="consignee" class="java.util.List"/>
-	<parameter name="carrier" class="java.util.List"/>
+	<parameter name="header" class="java.util.List"/>
 	<parameter name="copies" class="java.lang.Integer"/>
 	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
 		<defaultValueExpression><![CDATA["C:\\Users\\Aliseo-G\\Documents\\reports\\"]]></defaultValueExpression>
@@ -24,7 +22,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM SSTESORD LEFT JOIN associato ON SSTESORD.id_associato = associato.id LEFT JOIN Vettori ON SSTESORD.WKVettore = Vettori.RavCodana WHERE WKAnno = $P{year} AND WKNOrd = $P{WkNOrd} AND id_associato = $P{idAssociato} AND WKTipdoc = $P{tipoDocumento};]]>
+		<![CDATA[SELECT * FROM SSTESORD LEFT JOIN associato ON SSTESORD.id_associato = associato.id LEFT JOIN Vettori ON SSTESORD.WKVettore = Vettori.RavCodana LEFT JOIN Porto ON SSTESORD.porto = Porto.RdeCoddes WHERE WKAnno = $P{year} AND WKNOrd = $P{WkNOrd} AND id_associato = $P{idAssociato} AND WKTipdoc = $P{tipoDocumento};]]>
 	</queryString>
 	<field name="WKAnno" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -227,6 +225,21 @@
 	<field name="RavCodiaz" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="RdeCdinco" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RdeCoddes" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RdeDescri" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RdeIncoterm" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="RdeCodiaz" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band height="832">
 			<rectangle>
@@ -239,14 +252,14 @@
 			<textField>
 				<reportElement x="25" y="4" width="335" height="20" uuid="b1e46d40-840b-4dd6-8a58-8fc1f84560c6"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7"/>
+					<font fontName="SansSerif" size="7"/>
 				</textElement>
-				<textFieldExpression><![CDATA["Esemplare per "+ $P{sender}.get(0) + " - Exemplaire pour "+ $P{sender}.get(1) + " - Copy for " +  $P{sender}.get(2)]]></textFieldExpression>
+				<textFieldExpression><![CDATA["Esemplare per "+ $P{header}.get(0) + " - Exemplaire pour "+ $P{header}.get(1) + " - Copy for " +  $P{header}.get(2)]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="0" y="4" width="22" height="20" uuid="1adc8b3b-bb30-48a3-90f2-e3c4ddf4aa59"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="12" isBold="true"/>
+					<font fontName="SansSerif" size="12" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$P{copies}]]></textFieldExpression>
 			</textField>
@@ -257,7 +270,7 @@
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="227" y="59" width="111" height="40" uuid="76f51de7-bd55-4470-8d59-9c9ac441cec2"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Ce transport est soumis à la convention relative au contrat de transport International de marchandises par route.]]></text>
 			</staticText>
@@ -270,7 +283,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[3
 ]]></text>
@@ -278,7 +291,7 @@
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="433" y="70" width="120" height="29" uuid="9152bfd2-6894-424f-81c1-413b22683238"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[This carriage is subject to the Convention on the Contract for the Inter. Carriage of goods by road.]]></text>
 			</staticText>
@@ -289,11 +302,11 @@
 				<reportElement x="0" y="218" width="550" height="1" uuid="ad29a195-1cee-4d0b-832b-13aa2ff1dfc7"/>
 			</line>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="243" y="101" width="123" height="28" uuid="fdeb5171-224d-4673-9b18-bb964deff9ff"/>
+				<reportElement stretchType="RelativeToTallestObject" x="243" y="101" width="116" height="28" uuid="fdeb5171-224d-4673-9b18-bb964deff9ff"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Trasportatore (nome, domicilio, paese) Transporteur (nom, adresse, pays) Carrier (name, address, country)]]></text>
+				<text><![CDATA[Trasportatore (nome, domicilio, paese)        Transporteur (nom, adresse, pays)                Carrier (name, address, country)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="225" y="165" width="16" height="14" uuid="74386164-1e7a-4d9b-9bd7-5e737ff14f28"/>
@@ -304,28 +317,28 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[17]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="25" y="218" width="128" height="28" uuid="11138943-f84f-4e3a-9ea7-360f587d602d"/>
+				<reportElement stretchType="RelativeToTallestObject" x="25" y="218" width="124" height="28" uuid="11138943-f84f-4e3a-9ea7-360f587d602d"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Luogo di destinazione delle merci            Lieu de la prise en charge de la marchandise Place of taking over the goods]]></text>
+				<text><![CDATA[Luogo di destinazione delle merci                    Lieu de la prise en charge de la marchandise Place of taking over the goods]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="20" y="160" width="133" height="28" uuid="f029bf5f-0bca-4254-a8ec-94a96d193aee"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Luogo di presa in consegna delle merci Lieu pour la livraison de la marchandise     Place of delivery of the goods]]></text>
+				<text><![CDATA[Luogo di presa in consegna delle merci             Lieu pour la livraison de la marchandise             Place of delivery of the goods]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="433" y="2" width="121" height="28" uuid="51a0d600-1e8c-4de2-b171-0bc6eb3591b8"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Questo trasporto è sottoposto, nonostante tutte le clausole contrarie, alla Convenzione del Trasp. Stradale]]></text>
 			</staticText>
@@ -333,18 +346,18 @@
 				<reportElement x="0" y="100" width="550" height="1" uuid="d3466ff0-e7e9-4c86-926c-9e6d221cd4f2"/>
 			</line>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="20" y="2" width="111" height="28" uuid="d99f6e95-40a9-48bf-80f7-f60039e8b9be"/>
+				<reportElement stretchType="RelativeToTallestObject" x="20" y="2" width="103" height="28" uuid="d99f6e95-40a9-48bf-80f7-f60039e8b9be"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Mittente (nome, domicilio, paese) Expediteur (nom, adresse, pays) Sender (name, address, country)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="227" y="2" width="111" height="28" uuid="ca32a78d-b782-4d6d-9fac-8ef0fda34c45"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Lettera di vettura internazionale Lettre de voiture internacionale International consignment note]]></text>
+				<text><![CDATA[Lettera di vettura internazionale                        Lettre de voiture internacionale International consignment note]]></text>
 			</staticText>
 			<line>
 				<reportElement x="0" y="281" width="224" height="1" uuid="49737f6a-91f8-46b1-9759-486fe0043e9e"/>
@@ -352,21 +365,21 @@
 			<staticText>
 				<reportElement x="342" y="28" width="100" height="31" uuid="b8c6a087-bf8c-4790-a10b-c10ca4eda2eb"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="18" isBold="true"/>
+					<font fontName="SansSerif" size="18" isBold="true"/>
 				</textElement>
 				<text><![CDATA[N.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="243" y="218" width="139" height="28" uuid="4635b8bd-a4dc-41a2-aab2-b00c29a4fd80"/>
+				<reportElement stretchType="RelativeToTallestObject" x="243" y="218" width="121" height="28" uuid="4635b8bd-a4dc-41a2-aab2-b00c29a4fd80"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Riserve ed osservazioni del corriere Réserves ed observations du transporteur Carrer's reservations and observations]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="20" y="281" width="72" height="28" uuid="a323e58d-9ad8-44c9-8134-2a833636d067"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Documenti allegati Documents annexille Documents attached]]></text>
 			</staticText>
@@ -379,7 +392,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[1]]></text>
 			</staticText>
@@ -392,7 +405,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[2]]></text>
 			</staticText>
@@ -408,16 +421,16 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[18]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="20" y="101" width="123" height="26" uuid="2af121ff-a990-4125-8439-530196d03e8b"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Destinatario (nome, domicilio, paese) Destinataire (nom, adresse, pays) Consignee (name, address, country)]]></text>
+				<text><![CDATA[Destinatario (nome, domicilio, paese) Destinataire (nom, adresse, pays)     Consignee (name, address, country)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="3" y="224" width="16" height="14" uuid="5f5708f3-44bd-4a5a-9a92-9e817817a052"/>
@@ -428,7 +441,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[4]]></text>
 			</staticText>
@@ -441,7 +454,7 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[5]]></text>
 			</staticText>
@@ -454,21 +467,21 @@
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[16]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="243" y="158" width="170" height="28" uuid="e8042e63-721b-4344-bb59-1d5310a5c463"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="6" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
-				<text><![CDATA[Trasportatore successivo (nome, domicilio, paese) Transporteurs succesives (nom, address, pays) Successive carriers (name, address, country)]]></text>
+				<text><![CDATA[Trasportatore successivo (nome, domicilio, paese) Transporteurs succesives (nom, address, pays)              Successive carriers (name, address, country)]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="218" y="127" width="72" height="38" forecolor="#EEEEEE" uuid="5e23f705-4f1d-4914-b4b8-fadf323e7f23"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="25" isBold="true" isItalic="false"/>
+					<font fontName="SansSerif" size="25" isBold="true" isItalic="false"/>
 				</textElement>
 				<text><![CDATA[CMR]]></text>
 			</staticText>
@@ -550,7 +563,7 @@
 					<subreportParameterExpression><![CDATA[$P{idAssociato}]]></subreportParameterExpression>
 				</subreportParameter>
 				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "cmr_details.jasper"]]></subreportExpression>
+				<subreportExpression><![CDATA["./cmr_details.jasper"]]></subreportExpression>
 			</subreport>
 		</band>
 	</detail>
@@ -562,7 +575,7 @@
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="9" y="2" width="50" height="18" uuid="e8c460a5-2981-4e3d-82fc-bbd429a87316"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="7" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Classe / Classe
 Class]]></text>
@@ -570,7 +583,7 @@ Class]]></text>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="129" y="2" width="48" height="18" uuid="3cf63ce5-b6f2-4fe3-b526-cc0126248f88"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="7" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Cifra / Chiffre
 Numbers]]></text>
@@ -578,7 +591,7 @@ Numbers]]></text>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="253" y="2" width="61" height="19" uuid="a60b3e0f-a08b-4d17-b5f4-94d08958fb56"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="7" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Lettere / Lettres
 Letters]]></text>
@@ -595,14 +608,14 @@ Letters]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[13]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="29" y="21" width="90" height="28" uuid="9f938804-4b03-44e5-a4b1-9ed23b960ceb"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Istruzioni del mittente
 Instructions de l'expediteur
@@ -614,7 +627,7 @@ Sender's instructions]]></text>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="274" y="22" width="90" height="28" uuid="c5cfcd1b-48c8-47b1-ad80-4b9c4b2fc121"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Convenzioni particolari
 Conventions particulières
@@ -629,7 +642,7 @@ Special agreement]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[19
 ]]></text>
@@ -643,14 +656,14 @@ Special agreement]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[14]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="29" y="124" width="120" height="28" uuid="9ff35daf-8f4f-4685-b073-8a7c3dbb6424"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Istruzioni per il pagamento del nolo
 Presentactions d'affranchasement
@@ -668,14 +681,14 @@ Instructions as to payment carriage]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[20]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="268" y="68" width="71" height="24" uuid="20a30c78-cde1-4885-be14-9c48623da437"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Pagare per
 To be paied by]]></text>
@@ -683,7 +696,7 @@ To be paied by]]></text>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="339" y="68" width="80" height="24" uuid="1c833534-2d8d-493f-8a66-7a7d18e64999"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Venditore
 Senders]]></text>
@@ -691,7 +704,7 @@ Senders]]></text>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="419" y="68" width="67" height="24" uuid="3343eab6-4cf6-4856-9a06-c7958da2b13e"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Valuta
 Currency]]></text>
@@ -699,7 +712,7 @@ Currency]]></text>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="486" y="68" width="74" height="24" uuid="581e32fb-ed45-436a-8f3d-7d2f3b6ffcd1"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Destinatario
 Consignee]]></text>
@@ -707,63 +720,63 @@ Consignee]]></text>
 			<staticText>
 				<reportElement x="259" y="102" width="71" height="10" uuid="83652e0a-49a5-4f2c-b757-b77b85ad3cb4"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Carriage charges:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="259" y="132" width="71" height="10" uuid="a950705c-93df-4b90-9ca4-c80e8e487327"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Supplementi:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="259" y="142" width="71" height="10" uuid="2bddd3ca-25cb-4913-8b07-495fd539f542"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Supplem. charges:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="259" y="152" width="71" height="10" uuid="07c7c0cf-06d3-4248-86b5-8650593be0e8"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Spese accessorie:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="259" y="162" width="71" height="10" uuid="e95d922d-4ae2-4e27-9ace-97cddd61fe0f"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Other charges:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="259" y="92" width="71" height="10" uuid="50489b45-17fb-4142-b859-88e14cd708b0"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Prezzo del trasporto:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="259" y="122" width="71" height="10" uuid="74b894bf-dd4a-4c1f-966a-4b4adfccdd1d"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Deductions:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="259" y="112" width="71" height="10" uuid="03a39a72-8df3-4d22-be17-99e46bcd7d3a"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Descuentos:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="259" y="172" width="71" height="10" uuid="4fc71137-72fb-404d-a6dd-2456967bb631"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[TOTAL]]></text>
 			</staticText>
@@ -800,14 +813,14 @@ Consignee]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[15]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="272" y="187" width="178" height="10" uuid="93ee375a-fd8a-4c70-8641-c7a6692a0132"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Rimborso / Remboursement / Cash on delivery]]></text>
 			</staticText>
@@ -820,14 +833,14 @@ Consignee]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[21]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="29" y="182" width="49" height="28" uuid="2cc0fc5d-91a0-4be3-b63a-a8eae1b46557"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Stabilito in:
 Estabé à:
@@ -836,7 +849,7 @@ Established in:]]></text>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="177" y="182" width="12" height="28" uuid="007f8fca-6c53-444d-9f01-12f7ffc12238"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[il:
 le:
@@ -854,14 +867,14 @@ on:]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[22]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="3" y="314" width="120" height="28" uuid="715fc420-13cc-4134-b49e-435d81e66a94"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Firma e Timbro del Mittente
 Signature et timbre de l'expéditeur
@@ -876,14 +889,14 @@ Signature and stamp of the sender]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[23]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="192" y="221" width="120" height="28" uuid="ee580198-7de6-4b82-b927-efd3122bfbf1"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Firma e Timbro del Trasportatore
 Signature et timbre du transporteur
@@ -901,14 +914,14 @@ Signature and stamp of the carrier]]></text>
 					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Arial" size="9" isBold="true"/>
+					<font fontName="SansSerif" size="9" isBold="true"/>
 				</textElement>
 				<text><![CDATA[24]]></text>
 			</staticText>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="363" y="222" width="155" height="28" uuid="b036d37a-7a64-43cd-91f6-cfbec6e94228"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="7" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Ricevuta della Merce
 Marcharndises recues
@@ -917,7 +930,7 @@ Goods received]]></text>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="342" y="252" width="46" height="28" uuid="2502cc8d-274b-4380-a5a8-48eb9a6ec394"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="7" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Luogo:
 Lieu:
@@ -926,7 +939,7 @@ Place: ]]></text>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="477" y="250" width="12" height="28" uuid="c0ebec87-4498-4f5d-babb-7e69da972c9e"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="7" isBold="false"/>
 				</textElement>
 				<text><![CDATA[il:
 le:
@@ -935,7 +948,7 @@ on:]]></text>
 			<staticText>
 				<reportElement stretchType="RelativeToTallestObject" x="343" y="314" width="120" height="28" uuid="d203ce9c-c354-445e-9c23-e40c14ec8801"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="7" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Firma e Timbro del destinatario
 Signature et timbre du destinataire
@@ -945,21 +958,21 @@ Signature and stamp of the consignee]]></text>
 				<reportElement x="0" y="124" width="254" height="1" uuid="0a436521-a149-417a-b2fd-67c0d73ed074"/>
 			</line>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="177" y="267" width="126" height="28" uuid="ab94fdf0-a715-4280-8262-0764d2985d94"/>
+				<reportElement stretchType="RelativeToTallestObject" x="177" y="285" width="64" height="28" uuid="ab94fdf0-a715-4280-8262-0764d2985d94"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Targa Motrice
-Numero d'immatriculation de la motirce
+Plaque de la motirce
 Driving license plate]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="178" y="313" width="136" height="28" uuid="6787b0cb-8f75-4dce-aaaa-0b14ca6a216f"/>
+				<reportElement stretchType="RelativeToTallestObject" x="177" y="313" width="65" height="28" uuid="6787b0cb-8f75-4dce-aaaa-0b14ca6a216f"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Arial" size="7" isBold="false"/>
+					<font fontName="SansSerif" size="6" isBold="false"/>
 				</textElement>
 				<text><![CDATA[Targa rimorchio
-Numero d'immatriculation de la remorque
+Plaque de la remorque
 Trailer license plate]]></text>
 			</staticText>
 			<line>
@@ -967,7 +980,7 @@ Trailer license plate]]></text>
 			</line>
 			<textField>
 				<reportElement x="3" y="152" width="240" height="29" uuid="ea084394-5b3a-41fb-bcb5-43f2df49eeab"/>
-				<textFieldExpression><![CDATA[$F{porto}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{porto} != "" ? $F{RdeDescri} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="78" y="185" width="95" height="35" uuid="6a36afc3-498c-465d-99fa-949426efce51"/>
@@ -998,11 +1011,18 @@ Trailer license plate]]></text>
 				<textFieldExpression><![CDATA[$F{indirizzo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="178" y="296" width="144" height="20" uuid="0e352e68-2fe7-4528-8ba6-7f8de2e865d9"/>
-				<textElement>
+				<reportElement x="253" y="290" width="75" height="17" uuid="0e352e68-2fe7-4528-8ba6-7f8de2e865d9"/>
+				<textElement verticalAlignment="Middle">
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TargaCamion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="253" y="314" width="75" height="17" uuid="f422ed91-001e-4c17-ba78-053e075dce35"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TargaRimorchio}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
