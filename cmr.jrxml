@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cmr1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="5" uuid="92f70c26-25c5-499a-addc-09689b4affc9">
-	<property name="ireport.zoom" value="1.9487171000000243"/>
+	<property name="ireport.zoom" value="1.1000000000000136"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1132"/>
+	<property name="ireport.y" value="0"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="header" class="java.util.List"/>
 	<parameter name="copies" class="java.lang.Integer"/>
@@ -22,7 +22,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT * FROM testata_rigo_view LEFT JOIN AnagraficheClientiFornitori ON codiceSogetto = AnagraficheClientiFornitori.RacCodana LEFT JOIN associato ON idAssociato = associato.id LEFT JOIN Vettori ON vettore = Vettori.RavCodana WHERE anno = $P{year} AND nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento = $P{tipoDocumento};]]>
+		<![CDATA[SELECT * FROM testata_rigo_view LEFT JOIN AnagraficheClientiFornitori ON codiceSogetto = AnagraficheClientiFornitori.RacCodana LEFT JOIN associato ON idAssociato = associato.id LEFT JOIN Vettori ON vettore = Vettori.RavCodana LEFT JOIN CMR ON (testata_rigo_view .anno = CMR.anno AND nOrdine = CMR.numero_documento AND testata_rigo_view.idAssociato = CMR.id_associato) WHERE testata_rigo_view.anno = $P{year} AND nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento = $P{tipoDocumento};]]>
 	</queryString>
 	<field name="anno" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -384,6 +384,42 @@
 	<field name="RavCodiaz" class="java.lang.String">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="numero_CMR" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="numero_documento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_associato" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="riserve" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="allegati" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="classe" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cifra" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="lettera" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="ADR" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="istruzioni" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="convenzioni" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="rimborso" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<background>
 		<band height="832">
 			<rectangle>
@@ -507,7 +543,7 @@
 				<reportElement x="0" y="281" width="224" height="1" uuid="49737f6a-91f8-46b1-9759-486fe0043e9e"/>
 			</line>
 			<staticText>
-				<reportElement x="342" y="28" width="100" height="31" uuid="b8c6a087-bf8c-4790-a10b-c10ca4eda2eb"/>
+				<reportElement x="342" y="32" width="21" height="27" uuid="b8c6a087-bf8c-4790-a10b-c10ca4eda2eb"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="18" isBold="true"/>
 				</textElement>
@@ -702,6 +738,27 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{vettore2} != "" ? ($F{RavIndiri} + "\n" + $F{RavCap} + " " + $F{RavComune} + " (" + $F{RavSigpro} + ") " + $F{RavSigsta} +  " - Albo N. " + $F{RavNote}) : ""]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="377" y="32" width="49" height="27" uuid="0be1b0b5-10d5-4c9c-a399-18ff6eff98df"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{numero_CMR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="243" y="246" width="303" height="56" uuid="d1fbae92-a2cc-4016-85b5-67f92da1f19f"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{riserve}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="91" y="285" width="126" height="20" uuid="230582e8-a067-44e8-b295-a580012a3b98"/>
+				<textElement verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{allegati}]]></textFieldExpression>
+			</textField>
 		</band>
 	</columnHeader>
 	<detail>
@@ -731,7 +788,7 @@
 				<reportElement x="0" y="0" width="550" height="1" uuid="240afa41-f53c-43d7-8606-d32133bf61b0"/>
 			</line>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="9" y="2" width="50" height="18" uuid="e8c460a5-2981-4e3d-82fc-bbd429a87316"/>
+				<reportElement stretchType="RelativeToTallestObject" x="9" y="0" width="50" height="18" uuid="e8c460a5-2981-4e3d-82fc-bbd429a87316"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="7" isBold="false"/>
 				</textElement>
@@ -739,7 +796,7 @@
 Class]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="129" y="2" width="48" height="18" uuid="3cf63ce5-b6f2-4fe3-b526-cc0126248f88"/>
+				<reportElement stretchType="RelativeToTallestObject" x="129" y="0" width="48" height="18" uuid="3cf63ce5-b6f2-4fe3-b526-cc0126248f88"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="7" isBold="false"/>
 				</textElement>
@@ -747,7 +804,7 @@ Class]]></text>
 Numbers]]></text>
 			</staticText>
 			<staticText>
-				<reportElement stretchType="RelativeToTallestObject" x="253" y="2" width="61" height="19" uuid="a60b3e0f-a08b-4d17-b5f4-94d08958fb56"/>
+				<reportElement stretchType="RelativeToTallestObject" x="253" y="0" width="61" height="19" uuid="a60b3e0f-a08b-4d17-b5f4-94d08958fb56"/>
 				<textElement verticalAlignment="Middle">
 					<font fontName="SansSerif" size="7" isBold="false"/>
 				</textElement>
@@ -1181,6 +1238,55 @@ Trailer license plate]]></text>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{comuneCMR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="0" width="63" height="18" uuid="758d1790-5184-46dd-a451-7bb94456154a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{classe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="0" width="63" height="18" uuid="16cc38e7-7aa3-4d97-aa68-b99f9f087619"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cifra}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="314" y="0" width="63" height="18" uuid="57e191ee-561f-4978-b0ae-a9281bfe645e"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{lettera}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="433" y="0" width="63" height="18" uuid="0c135bf9-2e04-4c55-bb5b-f5a741edf877"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ADR}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="395" y="0" width="61" height="19" uuid="5ee86d09-efc1-45a8-b4e3-3993e62aeb78"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" size="7" isBold="false"/>
+				</textElement>
+				<text><![CDATA[(ADR)]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="364" y="28" width="181" height="35" uuid="70894ee2-a05f-41f0-9ae7-0bfc1c0df4a6"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{convenzioni}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="259" y="199" width="286" height="20" uuid="de9db998-8699-4de7-8668-9bc4c9e20e18"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{convenzioni}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>
