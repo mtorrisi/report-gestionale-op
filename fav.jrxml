@@ -41,7 +41,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo, ClientiFornitoriDatiAgg.RveCodban AS codiceBancaApp, ClientiFornitoriDatiAgg.RvePagame AS codicePagamento, ClientiFornitoriDatiAgg.RveEsenzi AS codiceEsenzione, BancheAppoggio.RbaDescri AS descrizioneBanca, BancheAppoggio.RbaCodabi AS ABI, BancheAppoggio.RbaCodcab AS CAB, Pagamenti.RpaDescri AS descrizionePagamento, associato.ragione_sociale AS associatoRagSoc, associato.partita_iva AS associatoPIVA, associato.indirizzo AS associatoIndirizzo, associato.telefono AS associatoTelefono,associato.email AS associatoEmail, VociIva.RiaAliquo AS aliquota, VociIva.RiaDescri AS descrBreveIVA, VociIva.RiaDesdoc AS descrDocIVA FROM testata_rigo_view LEFT JOIN Articoli ON RanCodart = testata_rigo_view.imballo LEFT JOIN ClientiFornitoriDatiAgg ON ClientiFornitoriDatiAgg.RveCodclf = testata_rigo_view.codiceSogetto LEFT JOIN VociIva ON ClientiFornitoriDatiAgg.RveEsenzi = VociIva.RiaCodiva LEFT JOIN BancheAppoggio ON ClientiFornitoriDatiAgg.RveCodban = BancheAppoggio.RbaCodban LEFT JOIN Pagamenti ON ClientiFornitoriDatiAgg.RvePagame = Pagamenti.RpaCodpag LEFT JOIN associato ON associato.id = testata_rigo_view.idAssociato WHERE nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento= $P{tipoDocumento} AND anno = $P{year};]]>
+		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo, ClientiFornitoriDatiAgg.RveCodban AS codiceBancaApp, ClientiFornitoriDatiAgg.RvePagame AS codicePagamento, ClientiFornitoriDatiAgg.RveEsenzi AS codiceEsenzione, BancheAppoggio.RbaDescri AS descrizioneBanca, BancheAppoggio.RbaCodabi AS ABI, BancheAppoggio.RbaCodcab AS CAB, Pagamenti.RpaDescri AS descrizionePagamento, associato.ragione_sociale AS associatoRagSoc, associato.partita_iva AS associatoPIVA, associato.centro AS associatoCentro, associato.indirizzo AS associatoIndirizzo, associato.telefono AS associatoTelefono,associato.email AS associatoEmail, VociIva.RiaAliquo AS aliquota, VociIva.RiaDescri AS descrBreveIVA, VociIva.RiaDesdoc AS descrDocIVA FROM testata_rigo_view LEFT JOIN Articoli ON RanCodart = testata_rigo_view.imballo LEFT JOIN ClientiFornitoriDatiAgg ON ClientiFornitoriDatiAgg.RveCodclf = testata_rigo_view.codiceSogetto LEFT JOIN VociIva ON ClientiFornitoriDatiAgg.RveEsenzi = VociIva.RiaCodiva LEFT JOIN BancheAppoggio ON ClientiFornitoriDatiAgg.RveCodban = BancheAppoggio.RbaCodban LEFT JOIN Pagamenti ON ClientiFornitoriDatiAgg.RvePagame = Pagamenti.RpaCodpag LEFT JOIN associato ON associato.id = testata_rigo_view.idAssociato WHERE nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento= $P{tipoDocumento} AND anno = $P{year};]]>
 	</queryString>
 	<field name="anno" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>
@@ -265,6 +265,9 @@
 	<field name="progressivo" class="java.lang.Long">
 		<fieldDescription><![CDATA[]]></fieldDescription>
 	</field>
+	<field name="nomCombinata" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
 	<field name="descrImballo" class="java.lang.String"/>
 	<field name="unitMisImballo" class="java.lang.String"/>
 	<field name="codiceBancaApp" class="java.lang.String"/>
@@ -276,6 +279,7 @@
 	<field name="descrizionePagamento" class="java.lang.String"/>
 	<field name="associatoRagSoc" class="java.lang.String"/>
 	<field name="associatoPIVA" class="java.lang.String"/>
+	<field name="associatoCentro" class="java.lang.String"/>
 	<field name="associatoIndirizzo" class="java.lang.String"/>
 	<field name="associatoTelefono" class="java.lang.String"/>
 	<field name="associatoEmail" class="java.lang.String"/>
@@ -435,7 +439,7 @@
 					<font size="10" isBold="true"/>
 					<paragraph rightIndent="5"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{nOrdine}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{nOrdine} + " / " + $F{associatoCentro}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="205" y="170" width="75" height="20" uuid="279cbd53-3e54-40f7-b41f-5987dd7167f9"/>
@@ -634,7 +638,7 @@
 					<font size="6" isBold="true"/>
 					<paragraph leftIndent="5"/>
 				</textElement>
-				<text><![CDATA[Banca d'appoggio - ABI / CAB]]></text>
+				<text><![CDATA[Note]]></text>
 			</staticText>
 			<textField>
 				<reportElement x="80" y="261" width="180" height="20" uuid="f7ca8f08-5866-4c26-b97d-e40a2212d5bc"/>
@@ -647,18 +651,6 @@
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descrizionePagamento}]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="260" y="261" width="292" height="20" uuid="89dda353-cc34-46f0-b628-73d2dd4831aa"/>
-				<box>
-					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
-					<rightPen lineColor="#CCCCCC"/>
-				</box>
-				<textElement verticalAlignment="Bottom">
-					<font size="8"/>
-					<paragraph leftIndent="5"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($F{descrizioneBanca} != null) ? ($F{descrizioneBanca} + " - " + $F{ABI} + "/"  + $F{CAB}) : ""]]></textFieldExpression>
 			</textField>
 			<staticText>
 				<reportElement x="80" y="251" width="180" height="10" uuid="65543792-443c-4dde-83f7-3d9ee079fdc2"/>

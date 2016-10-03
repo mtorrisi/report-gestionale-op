@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cmr1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="5" bottomMargin="5" uuid="92f70c26-25c5-499a-addc-09689b4affc9">
-	<property name="ireport.zoom" value="1.1000000000000136"/>
+	<property name="ireport.zoom" value="1.2100000000000164"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="544"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
 	<parameter name="header" class="java.util.List"/>
 	<parameter name="copies" class="java.lang.Integer"/>
@@ -763,6 +763,7 @@
 	</columnHeader>
 	<detail>
 		<band height="120">
+			<printWhenExpression><![CDATA[$V{REPORT_COUNT} == 1]]></printWhenExpression>
 			<subreport>
 				<reportElement x="0" y="0" width="555" height="120" uuid="31f1314f-465f-4964-a454-4ca42938ff43"/>
 				<subreportParameter name="tipoDocumento">
@@ -1287,6 +1288,13 @@ Trailer license plate]]></text>
 					<font size="9"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{convenzioni}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="3" y="49" width="245" height="73" uuid="904b526e-6e48-46fe-924e-c10a6bedf2d6"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{istruzioni}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

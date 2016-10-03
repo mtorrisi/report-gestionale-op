@@ -401,7 +401,7 @@ Volume m3]]></text>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="17" splitType="Stretch">
+		<band height="17" splitType="Prevent">
 			<textField isStretchWithOverflow="true">
 				<reportElement x="253" y="0" width="105" height="15" uuid="035beed8-bfa5-4e50-b3d0-a9c7b62258a3"/>
 				<textElement verticalAlignment="Middle">
