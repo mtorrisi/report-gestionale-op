@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2016-11-18T12:03:32 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="order" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="24938ab7-71a3-4590-abca-a95d39b7e51a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="marletta.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value="IldLX09SRENMSSIgLDE2MiwxNSwxOTcxODI5MC1mM2E4LTQ5YTAtYjZiMC0xNDgwOGIwMTJmZjA7&#xA;IlBBR0FNRSIgLDE1LDQzMixlYWEyNjc2Yy0xYTk4LTQ2NWYtOWYzZS03ODcxMDAyNWQ3ZmI7IkFO&#xA;Q0xGTyIgLDMwOSwzOTMsMDc5MmU0NDItYzRjMi00ZGQwLTkyYWQtMzU1OTYzZjVhNTQ0Ow=="/>
+	<parameter name="anno" class="java.lang.Short"/>
+	<parameter name="tipo" class="java.lang.Short"/>
+	<parameter name="numero" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT *
+FROM "WK_ORDCLI"
+	JOIN "ANCLFO" ON 
+	 "WK_ORDCLI"."RolCodcli" = "ANCLFO"."RacCodana" 
+	JOIN "PAGAME" ON 
+	 "PAGAME"."RpaCodpag" = "WK_ORDCLI"."RolCodpag" 
+WHERE 
+	 "WK_ORDCLI"."RolAnno" = $P{anno} 
+	 AND "WK_ORDCLI"."RolTipord" = $P{tipo} 
+	 AND "WK_ORDCLI"."RolNumord" = $P{numero}]]>
+	</queryString>
+	<field name="RolAnno" class="java.lang.Short"/>
+	<field name="RolTipord" class="java.lang.Short"/>
+	<field name="RolNumord" class="java.lang.Integer"/>
+	<field name="RolTipdoc" class="java.lang.String"/>
+	<field name="RolCodtip" class="java.lang.Short"/>
+	<field name="RolStamov" class="java.lang.Short"/>
+	<field name="RolTipsog" class="java.lang.Short"/>
+	<field name="RolCodcli" class="java.lang.String"/>
+	<field name="RolCodese" class="java.lang.String"/>
+	<field name="RolCoddiv" class="java.lang.String"/>
+	<field name="RolCambio" class="java.lang.Double"/>
+	<field name="RolDtcamb" class="java.sql.Timestamp"/>
+	<field name="RolCodpag" class="java.lang.String"/>
+	<field name="RolDtcapg" class="java.sql.Timestamp"/>
+	<field name="RolPescch" class="java.lang.Double"/>
+	<field name="RolPescpc" class="java.lang.Double"/>
+	<field name="RolDatord" class="java.sql.Timestamp"/>
+	<field name="RolDatreg" class="java.sql.Timestamp"/>
+	<field name="RolCodcae" class="java.lang.String"/>
+	<field name="RolCodage" class="java.lang.String"/>
+	<field name="RolGruage" class="java.lang.String"/>
+	<field name="RolCodzon" class="java.lang.String"/>
+	<field name="RolCodspe" class="java.lang.String"/>
+	<field name="RolCodded" class="java.lang.String"/>
+	<field name="RolCodlis" class="java.lang.String"/>
+	<field name="RolNudepr" class="java.lang.Short"/>
+	<field name="RolAnnota" class="java.lang.String"/>
+	<field name="RolTemail" class="java.lang.Short"/>
+	<field name="RolNomPDF" class="java.lang.String"/>
+	<field name="RolRivoor" class="java.lang.String"/>
+	<field name="RolDatcon" class="java.sql.Timestamp"/>
+	<field name="RolTescon" class="java.lang.Short"/>
+	<field name="RolTotord" class="java.lang.Double"/>
+	<field name="RolLibstr1" class="java.lang.String"/>
+	<field name="RolLibstr2" class="java.lang.String"/>
+	<field name="RolLibstr3" class="java.lang.String"/>
+	<field name="RolLibdbl1" class="java.lang.Double"/>
+	<field name="RolLibdbl2" class="java.lang.Double"/>
+	<field name="RolLibdbl3" class="java.lang.Double"/>
+	<field name="RolLiblng1" class="java.lang.Integer"/>
+	<field name="RolLiblng2" class="java.lang.Integer"/>
+	<field name="RolLiblng3" class="java.lang.Integer"/>
+	<field name="RolLibdat1" class="java.sql.Timestamp"/>
+	<field name="RolLibdat2" class="java.sql.Timestamp"/>
+	<field name="RolLibdat3" class="java.sql.Timestamp"/>
+	<field name="RacCodana" class="java.lang.String"/>
+	<field name="RacRagso1" class="java.lang.String"/>
+	<field name="RacRagso2" class="java.lang.String"/>
+	<field name="RacIndiri" class="java.lang.String"/>
+	<field name="RacComune" class="java.lang.String"/>
+	<field name="RacCap" class="java.lang.String"/>
+	<field name="RacSigpro" class="java.lang.String"/>
+	<field name="RacSigsta" class="java.lang.String"/>
+	<field name="RacPariva" class="java.lang.String"/>
+	<field name="RacCodfis" class="java.lang.String"/>
+	<field name="RacNote" class="java.lang.String"/>
+	<field name="RacTepefi" class="java.lang.Short"/>
+	<field name="RacCodmne" class="java.lang.String"/>
+	<field name="RacTipsol" class="java.lang.Short"/>
+	<field name="RacAttivoEC" class="java.lang.Short"/>
+	<field name="upsize_ts" class="java.lang.Object"/>
+	<field name="RpaCodpag" class="java.lang.String"/>
+	<field name="RpaDescri" class="java.lang.String"/>
+	<field name="RpaNupres" class="java.lang.Short"/>
+	<field name="RpaGiprsu" class="java.lang.Short"/>
+	<field name="RpaGisesu" class="java.lang.Short"/>
+	<field name="RpaNusees" class="java.lang.Short"/>
+	<field name="RpaTesbam" class="java.lang.Short"/>
+	<field name="RpaTipbol" class="java.lang.Short"/>
+	<field name="RpaTipmod" class="java.lang.Short"/>
+	<field name="RpaMovesp" class="java.lang.Short"/>
+	<field name="RpaPerScoChi" class="java.lang.Double"/>
+	<field name="RpaPerScoPrc" class="java.lang.Double"/>
+	<field name="COLUMN_74" class="java.lang.Object"/>
+	<variable name="totaleLordo" class="java.lang.Double" resetType="Master"/>
+	<background>
+		<band height="760">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<rectangle radius="10">
+				<reportElement x="0" y="240" width="553" height="520" forecolor="#CCCCCC" uuid="35572861-73e6-407d-af0d-a99625c8658e">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+			</rectangle>
+			<line>
+				<reportElement x="90" y="240" width="1" height="520" forecolor="#CCCCCC" uuid="f786831f-d25c-4d4f-b42f-934f49df0de3">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="289" y="240" width="1" height="520" forecolor="#CCCCCC" uuid="f9857b9e-cd6a-4c64-8dae-d381aca16749">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="320" y="240" width="1" height="520" forecolor="#CCCCCC" uuid="0cb26f5d-2d27-45f7-97f8-23b1a9e3e731">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="358" y="240" width="1" height="520" forecolor="#CCCCCC" uuid="610ba80b-1be9-43f8-a8f6-5d5bb8219595">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="410" y="240" width="1" height="520" forecolor="#CCCCCC" uuid="3aea0a25-02f7-4c96-b74f-ac3715080e3e">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="490" y="240" width="1" height="520" forecolor="#CCCCCC" uuid="b64ddfdb-43ce-447f-bb0d-4561fd8cffc7">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="0" y="260" width="555" height="1" forecolor="#CCCCCC" uuid="21c75778-6cca-45ef-914f-d5b16dd07a46">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+			</line>
+		</band>
+	</background>
+	<pageHeader>
+		<band height="231" splitType="Stretch">
+			<rectangle radius="5">
+				<reportElement x="330" y="41" width="223" height="80" forecolor="#CCCCCC" backcolor="#FFFFFF" uuid="b45c9ac7-1d75-41b1-8971-350f3b296513"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="340" y="41" width="100" height="15" uuid="b3cce4d9-4aaa-4c4d-a69c-3abce6d4d10d"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Intestatario]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="340" y="56" width="213" height="25" uuid="e6b54aae-0097-4bbd-81ed-806636e10c11"/>
+				<textElement verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RacRagso1}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="81" width="212" height="29" uuid="781478f0-a4d5-4dfe-b1cf-7ca3346f393d"/>
+				<textElement verticalAlignment="Bottom"/>
+				<textFieldExpression><![CDATA[$F{RacIndiri} + "\n" + $F{RacCap} + " " + $F{RacComune} + " ("+ $F{RacSigpro} +")"]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="250" height="80" uuid="f2276efc-8536-4f96-b7c6-518a39ce810e"/>
+				<imageExpression><![CDATA["./images/logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement positionType="Float" x="10" y="76" width="270" height="84" uuid="f5e6f599-3cf9-495f-8fe7-740dcb4b29fb"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[MARLETTA FERRAMENTA s.r.l.
+Via Acquicella Porto, 35
+95121 CATANIA
+Tel. 0958812492 - 095311104 - 0952885583
+Fax. 095316556]]></text>
+			</staticText>
+			<rectangle radius="5">
+				<reportElement x="0" y="170" width="553" height="61" forecolor="#CCCCCC" backcolor="#FFFFFF" uuid="069b8e29-44df-48af-a0cb-7e92fcf58dde"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="170" width="110" height="10" uuid="927a3373-d4a6-44fd-b864-12cad50c446a"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Tipo documento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="110" y="170" width="95" height="10" uuid="8d7accca-8649-46f8-9a46-5a0de14f743e"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Num. Ordine]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="205" y="170" width="111" height="10" uuid="c6f2212b-4e2c-452c-b27c-c4776e3bae49"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Data docuemnto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="180" width="110" height="20" uuid="5780b456-6fb6-49aa-829d-f388b2e8e148"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Ordine Assunto Cliente]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="110" y="180" width="95" height="20" uuid="d0605d0e-042e-4fe6-bbf9-43bae6efb413"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="10" isBold="true"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RolNumord}]]></textFieldExpression>
+			</textField>
+			<textField pattern="d/M/yyyy">
+				<reportElement x="205" y="180" width="111" height="20" uuid="8f252c32-c2a5-4126-bf28-42edeebbb50f"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="10" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RolDatord}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="200" width="553" height="1" forecolor="#CCCCCC" uuid="8adf233f-4c67-4bc1-bbfe-fb1bb0c7e61d"/>
+			</line>
+			<staticText>
+				<reportElement x="500" y="170" width="50" height="10" uuid="0b7f0871-acf1-488b-a279-28deb9e7371f"/>
+				<box>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[N.Pag.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="500" y="180" width="10" height="20" uuid="a369de83-008b-4be7-8081-319ce7bbc833"/>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="510" y="180" width="40" height="20" uuid="acce6cad-2292-41ee-9539-83a4be12d645"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" di " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="316" y="170" width="183" height="10" uuid="96088dcd-3b8e-484d-846d-57f3a3b97259"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Riferimento Vostro Ordine]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="200" width="316" height="10" uuid="26f1c83b-0907-4a00-ae64-5ac3ef4d211f"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Annotazioni]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="210" width="234" height="20" uuid="4235c29a-17c1-47fa-8b68-8efff66c5993"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="316" y="200" width="234" height="10" uuid="fce56702-fc51-4a45-b08a-ecd86790c060"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Condizioni di pagamento]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="316" y="180" width="183" height="20" uuid="c0a63cac-9f31-49a8-a489-aeecd4132c2c"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="210" width="316" height="20" uuid="4a473396-ace2-4b45-a6a4-aaf4b7daecc2"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="321" y="210" width="220" height="20" uuid="abe9a418-4cb7-40e9-88e4-b88fd4d67c3f"/>
+				<textElement verticalAlignment="Bottom">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RpaDescri}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="470" y="210" width="83" height="20" uuid="742f12e6-cb77-4e1c-89e6-7d72d8aad62a"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="330" y="0" width="219" height="40" uuid="3388d144-e385-43d0-ba55-052a7a2ad84b"/>
+				<textElement verticalAlignment="Top">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[Cap. Soc. 83.200,00 di Euro int. vers.
+C.C.I.A.A. Catania N. 134777
+Reg. Trib. Catania N°15474
+Cod. Fisc. e Part. IVA 019003510871]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="475" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<subreport>
+				<reportElement x="0" y="5" width="555" height="470" uuid="ec358787-9006-4715-a168-261d4df5a57c">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="anno">
+					<subreportParameterExpression><![CDATA[$F{RolAnno}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tipo">
+					<subreportParameterExpression><![CDATA[$F{RolTipord}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="numero">
+					<subreportParameterExpression><![CDATA[$F{RolNumord}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="totale" toVariable="totaleLordo"/>
+				<subreportExpression><![CDATA["order-details.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="39" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="553" height="39" forecolor="#CCCCCC" backcolor="#FFFFFF" uuid="1a19293a-a894-4148-ba08-75cc3793117f">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+			</rectangle>
+			<line>
+				<reportElement x="130" y="30" width="250" height="1" forecolor="#CCCCCC" uuid="7651b959-a804-45f8-bc09-17b61f0c6b61">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+			</line>
+			<staticText>
+				<reportElement x="390" y="0" width="163" height="10" uuid="98db03d3-4328-4ac3-b67e-798530b9e4e1"/>
+				<box>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Totale Ordine]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="390" height="10" uuid="7f986655-9fee-4b22-be0b-68f940c8dea6"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Firma per accettazione]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="390" height="39" uuid="bdac691d-2f70-448b-b0e4-bd53808339ca"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField pattern="¤#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+				<reportElement x="390" y="0" width="160" height="39" uuid="f1cd81ba-3072-44fe-888f-212a23c36806"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totaleLordo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>
