@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2016-12-06T17:09:35 -->
+<!-- 2016-12-30T10:51:52 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="order" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="24938ab7-71a3-4590-abca-a95d39b7e51a">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="marletta.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value="IldLX09SRENMSSIgLDE2MiwxNSwxOTcxODI5MC1mM2E4LTQ5YTAtYjZiMC0xNDgwOGIwMTJmZjA7&#xA;IlBBR0FNRSIgLDE1LDQzMixlYWEyNjc2Yy0xYTk4LTQ2NWYtOWYzZS03ODcxMDAyNWQ3ZmI7IkFO&#xA;Q0xGTyIgLDMwOSwzOTMsMDc5MmU0NDItYzRjMi00ZGQwLTkyYWQtMzU1OTYzZjVhNTQ0Ow=="/>
@@ -452,13 +452,20 @@ Cod. Fisc. e Part. IVA 019003510871]]></text>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
-			<textField evaluationTime="Auto" pattern="¤#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
-				<reportElement x="440" y="0" width="110" height="39" uuid="f1cd81ba-3072-44fe-888f-212a23c36806"/>
+			<textField evaluationTime="Auto" pattern="#,##0.00#" isBlankWhenNull="true">
+				<reportElement x="440" y="10" width="110" height="29" uuid="f1cd81ba-3072-44fe-888f-212a23c36806"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{totaleLordo}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement x="390" y="10" width="30" height="29" uuid="fbd8421d-ffb0-4d82-9deb-259c004cdfaa"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[€]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
 </jasperReport>
