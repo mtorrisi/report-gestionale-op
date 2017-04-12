@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2016-11-18T10:39:52 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="order-details" pageWidth="555" pageHeight="842" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8ac23ddc-86cf-4684-923c-78e1df16c254">
+<!-- 2017-04-12T13:55:22 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="order-details" pageWidth="555" pageHeight="450" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="8ac23ddc-86cf-4684-923c-78e1df16c254">
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="marletta.xml"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
 	<parameter name="anno" class="java.lang.Short"/>
 	<parameter name="tipo" class="java.lang.Short"/>
 	<parameter name="numero" class="java.lang.Integer"/>
 	<queryString>
 		<![CDATA[SELECT *
 FROM "WK_RIORCL"
+	LEFT JOIN "ANAIVA" ON 
+	 "WK_RIORCL"."RoaCodiva" = "ANAIVA"."RiaCodiva" 
 WHERE 
 	 "WK_RIORCL"."RoaAnno" = $P{anno} 
 	 AND "WK_RIORCL"."RoaTipord" = $P{tipo} 
@@ -62,6 +72,46 @@ WHERE
 	<field name="RoaLibdat2" class="java.sql.Timestamp"/>
 	<field name="RoaLibdat3" class="java.sql.Timestamp"/>
 	<field name="upsize_ts" class="java.lang.Object"/>
+	<field name="RiaCodiva" class="java.lang.String"/>
+	<field name="RiaDescri" class="java.lang.String"/>
+	<field name="RiaAliquo" class="java.lang.Double"/>
+	<field name="RiaAliven" class="java.lang.Double"/>
+	<field name="RiaAlisco" class="java.lang.Double"/>
+	<field name="RiaAliude" class="java.lang.Double"/>
+	<field name="RiaAliind" class="java.lang.Double"/>
+	<field name="RiaCoivde" class="java.lang.String"/>
+	<field name="RiaTipiva" class="java.lang.Short"/>
+	<field name="RiaTesoma" class="java.lang.Short"/>
+	<field name="RiaTe27uc" class="java.lang.Short"/>
+	<field name="RiaTeacni" class="java.lang.Short"/>
+	<field name="RiaTest05" class="java.lang.Short"/>
+	<field name="RiaImponi" class="java.lang.Short"/>
+	<field name="RiaNonimp" class="java.lang.Short"/>
+	<field name="RiaEsenti" class="java.lang.Short"/>
+	<field name="RiaArt8c2" class="java.lang.Short"/>
+	<field name="RiaAggc05" class="java.lang.Short"/>
+	<field name="RiaAggc06" class="java.lang.Short"/>
+	<field name="RiaIva" class="java.lang.Short"/>
+	<field name="RiaAggc08" class="java.lang.Short"/>
+	<field name="RiaAggc09" class="java.lang.Short"/>
+	<field name="RiaAggc10" class="java.lang.Short"/>
+	<field name="RiaImpven" class="java.lang.String"/>
+	<field name="RiaIvaven" class="java.lang.String"/>
+	<field name="RiaImpacq" class="java.lang.String"/>
+	<field name="RiaIvaacq" class="java.lang.String"/>
+	<field name="RiaCodsom" class="java.lang.String"/>
+	<field name="RiaCodc06" class="java.lang.String"/>
+	<field name="RiaCod111" class="java.lang.String"/>
+	<field name="RiaCod112" class="java.lang.String"/>
+	<field name="RiaCod113" class="java.lang.String"/>
+	<field name="RiaCod114" class="java.lang.String"/>
+	<field name="RiaCod115" class="java.lang.String"/>
+	<field name="RiaFinale" class="java.lang.String"/>
+	<field name="RiaTeagop" class="java.lang.Short"/>
+	<field name="RiaDesdoc" class="java.lang.String"/>
+	<field name="RiaCodpro" class="java.lang.String"/>
+	<field name="RiaReparto" class="java.lang.String"/>
+	<field name="COLUMN_86" class="java.lang.Object"/>
 	<variable name="importo1" class="java.lang.Double">
 		<variableExpression><![CDATA[$F{RoaPrezzo} * $F{RoaQuanti} + ($F{RoaPrezzo} * $F{RoaQuanti}  * ($F{RoaScont1} / 100))]]></variableExpression>
 	</variable>
@@ -74,10 +124,18 @@ WHERE
 	<variable name="totale" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$V{importo3}]]></variableExpression>
 	</variable>
+	<variable name="iva" class="java.lang.Double">
+		<variableExpression><![CDATA[$V{importo3}* ($F{RiaAliquo} / 100)]]></variableExpression>
+	</variable>
+	<variable name="totaleIVA" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$V{iva}]]></variableExpression>
+	</variable>
 	<columnHeader>
 		<band height="30" splitType="Stretch">
 			<staticText>
-				<reportElement x="91" y="5" width="199" height="20" uuid="8ae5b431-72ef-4192-957d-b9148cf8d71f"/>
+				<reportElement x="91" y="5" width="190" height="20" uuid="8ae5b431-72ef-4192-957d-b9148cf8d71f">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -88,17 +146,21 @@ WHERE
 				<text><![CDATA[Descrizione]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="290" y="5" width="30" height="20" uuid="75615291-cb78-4a55-bb8f-8b4bf0aeda86"/>
+				<reportElement x="281" y="5" width="30" height="20" uuid="75615291-cb78-4a55-bb8f-8b4bf0aeda86">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Un.Mis]]></text>
+				<text><![CDATA[U.M.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="320" y="5" width="38" height="20" uuid="62cfc3e1-f0e1-42a4-8ea0-e6897c1716af"/>
+				<reportElement x="311" y="5" width="38" height="20" uuid="62cfc3e1-f0e1-42a4-8ea0-e6897c1716af">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -108,7 +170,9 @@ WHERE
 				<text><![CDATA[Quant.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="358" y="5" width="52" height="20" uuid="d4948dc8-5362-4967-b0cf-650604257ce5"/>
+				<reportElement x="349" y="5" width="52" height="20" uuid="d4948dc8-5362-4967-b0cf-650604257ce5">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -119,7 +183,10 @@ WHERE
 				<text><![CDATA[Prezzo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="410" y="5" width="80" height="20" uuid="9effb808-88dd-4a31-a5aa-3f3c8ff4b14a"/>
+				<reportElement x="401" y="5" width="70" height="20" uuid="9effb808-88dd-4a31-a5aa-3f3c8ff4b14a">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -140,7 +207,9 @@ WHERE
 				<text><![CDATA[Cod. Articolo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="490" y="5" width="62" height="20" uuid="b825a956-c744-4ca2-b78c-04f29927521f"/>
+				<reportElement x="471" y="5" width="62" height="20" uuid="b825a956-c744-4ca2-b78c-04f29927521f">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -149,6 +218,19 @@ WHERE
 					<paragraph leftIndent="5"/>
 				</textElement>
 				<text><![CDATA[Importo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="533" y="5" width="20" height="20" uuid="3e8432ac-9dc1-4d7a-9d76-b822535fdd48">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[C.I.]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -165,28 +247,28 @@ WHERE
 				<textFieldExpression><![CDATA[$F{RoaCodart}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="91" y="3" width="200" height="20" uuid="475e9031-4de0-43af-b759-6923fc8c3bb8"/>
+				<reportElement x="91" y="3" width="190" height="20" uuid="475e9031-4de0-43af-b759-6923fc8c3bb8"/>
 				<textElement verticalAlignment="Middle">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{RoaDescri}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="291" y="3" width="29" height="20" uuid="8897a36a-2aa7-4489-b59c-ef984c459728"/>
+				<reportElement x="281" y="3" width="29" height="20" uuid="8897a36a-2aa7-4489-b59c-ef984c459728"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<paragraph leftIndent="0"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{RoaUnimis}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="320" y="3" width="38" height="20" uuid="f734a664-8755-458a-9be9-91eb19b43239"/>
+				<reportElement x="311" y="3" width="38" height="20" uuid="f734a664-8755-458a-9be9-91eb19b43239"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<paragraph leftIndent="0"/>
 				</textElement>
 				<textFieldExpression><![CDATA[IF($F{RoaQuanti} != 0,$F{RoaQuanti},"")]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.000">
-				<reportElement x="358" y="3" width="52" height="20" uuid="2596dc5b-b4e2-49cb-bd79-4e7046166147"/>
+				<reportElement x="349" y="3" width="52" height="20" uuid="2596dc5b-b4e2-49cb-bd79-4e7046166147"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="10"/>
 					<paragraph leftIndent="0" rightIndent="3"/>
@@ -194,18 +276,27 @@ WHERE
 				<textFieldExpression><![CDATA[IF($F{RoaPrezzo} != 0,$F{RoaPrezzo},"")]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
-				<reportElement x="410" y="3" width="80" height="20" uuid="cabaa22d-4aa4-4aca-b204-b324186c98c6"/>
+				<reportElement x="401" y="3" width="70" height="20" uuid="cabaa22d-4aa4-4aca-b204-b324186c98c6"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<paragraph leftIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[""+IF($F{RoaScont1} != 0,$F{RoaScont1} + "% ","") + IF($F{RoaScont2} != 0,$F{RoaScont2} + "% ","") + IF($F{RoaScont3} != 0,$F{RoaScont3} + "% ","")]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00#">
-				<reportElement x="490" y="3" width="62" height="20" uuid="eec1af75-cc2a-46d7-954d-6f311359b203"/>
+				<reportElement x="471" y="3" width="62" height="20" uuid="eec1af75-cc2a-46d7-954d-6f311359b203"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<paragraph leftIndent="0" rightIndent="3"/>
 				</textElement>
 				<textFieldExpression><![CDATA[IF($V{importo3} != 0,$V{importo3},"")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="533" y="3" width="20" height="20" uuid="d8ce74ff-c5b2-4768-81d3-e08cc3c3489f">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="0"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RoaCodiva}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
