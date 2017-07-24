@@ -1,2 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl"><name>marlettaDataAdapter</name><driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver><username>sa</username><password>sistemi</password><savePassword>true</savePassword><url>jdbc:sqlserver://localhost:1433;databaseName=marletta</url><database></database><serverAddress></serverAddress><classpath>C:\Users\Aliseo-G\Downloads\sqljdbc_4.2.6420.100_ita\sqljdbc_4.2\ita\sqljdbc42.jar</classpath></jdbcDataAdapter>

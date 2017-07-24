@@ -1,3 +1,8 @@
 *.jasper
 *.pdf
 images/Thumbs.db
+/bin/
+/.classpath
+/.project
+/.settings
+/sqljdbc4.jar

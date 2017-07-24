@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2017-07-24T16:05:47 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cmr_details" language="groovy" pageWidth="555" pageHeight="120" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="84ff4e2c-54a6-4ca1-a613-5259bf499dbd">
 	<property name="ireport.zoom" value="1.2100000000000009"/>
 	<property name="ireport.x" value="0"/>
@@ -17,7 +19,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo, associato.ragione_sociale AS associatoRagSoc, Articoli.RanNomcom AS nomCombinata, associato.partita_iva AS associatoPIVA, associato.indirizzo AS associatoIndirizzo, associato.telefono AS associatoTelefono,associato.email AS associatoEmail FROM testata_rigo_view LEFT JOIN Articoli ON `RanCodart` = testata_rigo_view.imballo LEFT JOIN associato ON associato.id = testata_rigo_view.idAssociato WHERE anno = $P{year} AND nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento = $P{tipoDocumento} AND Articoli.RanCodart <> '' ;]]>
+		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo, associato.ragione_sociale AS associatoRagSoc, Articoli.RanNomcom AS nomCombinata, associato.partita_iva AS associatoPIVA, associato.indirizzo AS associatoIndirizzo, associato.telefono AS associatoTelefono,associato.email AS associatoEmail FROM testata_rigo_view LEFT JOIN Articoli ON RanCodart = testata_rigo_view.imballo LEFT JOIN associato ON associato.id = testata_rigo_view.idAssociato WHERE anno = $P{year} AND nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento = $P{tipoDocumento} AND Articoli.RanCodart <> '' ;]]>
 	</queryString>
 	<field name="anno" class="java.lang.Integer">
 		<fieldDescription><![CDATA[]]></fieldDescription>

@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<jdbcDataAdapter class="net.sf.jasperreports.data.jdbc.JdbcDataAdapterImpl"><name>gestionaleop DataAdapter</name><driver>com.microsoft.sqlserver.jdbc.SQLServerDriver</driver><username>sa</username><password>sistemi</password><savePassword>true</savePassword><url>jdbc:sqlserver://localhost:1433;databaseName=FRUTTAPIU</url><database></database><serverAddress></serverAddress><classpath>C:\Users\Aliseo-G\Documents\reports\sqljdbc4.jar</classpath></jdbcDataAdapter>

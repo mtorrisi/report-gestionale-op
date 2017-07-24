@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2017-07-24T14:17:18 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ddt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e3b4f04-7b69-4ed1-bcc0-bca4115e4ff1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="165"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="gestionaleop.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -42,233 +46,83 @@
 	</parameter>
 	<parameter name="logo" class="java.lang.String"/>
 	<queryString>
-		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo, ClientiFornitoriDatiAgg.RveCodban AS codiceBancaApp, ClientiFornitoriDatiAgg.RvePagame AS codicePagamento, ClientiFornitoriDatiAgg.RveEsenzi AS codiceEsenzione, BancheAppoggio.RbaDescri AS descrizioneBanca, BancheAppoggio.RbaCodabi AS ABI, BancheAppoggio.RbaCodcab AS CAB, Pagamenti.RpaDescri AS descrizionePagamento, associato.ragione_sociale AS associatoRagSoc, associato.partita_iva AS associatoPIVA, associato.indirizzo AS associatoIndirizzo, associato.telefono AS associatoTelefono, associato.email AS associatoEmail, associato.sezionale_op AS associatoSezionaleOP, VociIva.RiaAliquo AS aliquota, VociIva.RiaDescri AS descrBreveIVA, VociIva.RiaDesdoc AS descrDocIVA FROM testata_rigo_view LEFT JOIN Articoli ON RanCodart = testata_rigo_view.imballo LEFT JOIN ClientiFornitoriDatiAgg ON ClientiFornitoriDatiAgg.RveCodclf = testata_rigo_view.codiceSogetto LEFT JOIN VociIva ON ClientiFornitoriDatiAgg.RveEsenzi = VociIva.RiaCodiva LEFT JOIN BancheAppoggio ON ClientiFornitoriDatiAgg.RveCodban = BancheAppoggio.RbaCodban LEFT JOIN Pagamenti ON ClientiFornitoriDatiAgg.RvePagame = Pagamenti.RpaCodpag LEFT JOIN associato ON associato.id = testata_rigo_view.idAssociato WHERE nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento= $P{tipoDocumento} AND anno = $P{year};]]>
+		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo, ClientiFornitoriDatiAgg.RveCodban AS codiceBancaApp, ClientiFornitoriDatiAgg.RvePagame AS codicePagamento, ClientiFornitoriDatiAgg.RveEsenzi AS codiceEsenzione, BancheAppoggio.RbaDescri AS descrizioneBanca, BancheAppoggio.RbaCodabi AS ABI, BancheAppoggio.RbaCodcab AS CAB, Pagamenti.RpaDescri AS descrizionePagamento, associato.ragione_sociale AS associatoRagSoc, associato.partita_iva AS associatoPIVA, associato.indirizzo AS associatoIndirizzo, associato.telefono AS associatoTelefono, associato.email AS associatoEmail, associato.sezionale_op AS associatoSezionaleOP, VociIva.RiaAliquo AS aliquota, VociIva.RiaDescri AS descrBreveIVA, VociIva.RiaDesdoc AS descrDocIVA FROM testata_rigo_view LEFT JOIN Articoli ON RanCodart = testata_rigo_view.imballo LEFT JOIN ClientiFornitoriDatiAgg ON ClientiFornitoriDatiAgg.RveCodclf = testata_rigo_view.codiceSogetto LEFT JOIN VociIva ON ClientiFornitoriDatiAgg.RveEsenzi = VociIva.RiaCodiva LEFT JOIN BancheAppoggio ON ClientiFornitoriDatiAgg.RveCodban = BancheAppoggio.RbaCodban LEFT JOIN Pagamenti ON ClientiFornitoriDatiAgg.RvePagame = Pagamenti.RpaCodpag LEFT JOIN associato ON associato.id = testata_rigo_view.idAssociato WHERE nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento= $P{tipoDocumento} AND anno = $P{year}]]>
 	</queryString>
-	<field name="anno" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="nOrdine" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="idAssociato" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="codiceSogetto" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="dataOrdine" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="dataconsegna" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="destinazione" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="pIVASoggetto" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="CFSoggetto" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="indirizzoSoggetto" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="CAPSoggetto" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="comuneSoggetto" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="provinciaSoggetto" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="StatoSoggetto" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="ragioneSociale" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="operatore" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="visto" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="inviato" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="lottoTestata" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="tipoDocumento" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="vettore" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="vettoreRagioneSociale" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="indirizzoVettore" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="CAPVettore" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="comuneVettore" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="provinciaVettore" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="statoVettore" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="PIVAvettore" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="alboVettore" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="autista" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="telefono" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="centro" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="palletCaricati" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="palletScaricati" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="codeiceVettore" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="destinazioneVettore" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="nota1" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="nota2" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="rigodescrittivo" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="vettore2" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="curaTrasporto" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="aspettoEsteriore" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="causaleTrasporto" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="porto" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="origine" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="numeroPedaneEuro" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="numeroPedaneNormali" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="costoTrasporto" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="totalePedaneOrdine" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="targa" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="targaRimorchio" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="rigoOrdine" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="descrizioneVariante" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="codiceArticolo" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="descrizione" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="unitaMisura" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="colli" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="pesoLordo" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="tara" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="pesoNetto" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="prezzo" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="sconto1" class="java.lang.Float">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="sconto2" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="sconto3" class="java.lang.Integer">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="pedane" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="note" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="totalePesata" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="imballo" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="gestioneReti" class="java.lang.Boolean">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="RtxCl" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="kgRete" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="lotto" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="passaporto" class="java.lang.String">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="progressivo" class="java.lang.Long">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
-	<field name="nomCombinata" class="java.lang.Double">
-		<fieldDescription><![CDATA[]]></fieldDescription>
-	</field>
+	<field name="anno" class="java.lang.Short"/>
+	<field name="nOrdine" class="java.lang.Integer"/>
+	<field name="idAssociato" class="java.lang.Integer"/>
+	<field name="codiceSogetto" class="java.lang.String"/>
+	<field name="dataOrdine" class="java.lang.String"/>
+	<field name="dataconsegna" class="java.lang.String"/>
+	<field name="destinazione" class="java.lang.String"/>
+	<field name="pIVASoggetto" class="java.lang.String"/>
+	<field name="CFSoggetto" class="java.lang.String"/>
+	<field name="indirizzoSoggetto" class="java.lang.String"/>
+	<field name="CAPSoggetto" class="java.lang.String"/>
+	<field name="comuneSoggetto" class="java.lang.String"/>
+	<field name="provinciaSoggetto" class="java.lang.String"/>
+	<field name="StatoSoggetto" class="java.lang.String"/>
+	<field name="ragioneSociale" class="java.lang.String"/>
+	<field name="operatore" class="java.lang.String"/>
+	<field name="visto" class="java.lang.Short"/>
+	<field name="inviato" class="java.lang.Short"/>
+	<field name="lottoTestata" class="java.lang.String"/>
+	<field name="tipoDocumento" class="java.lang.String"/>
+	<field name="vettore" class="java.lang.String"/>
+	<field name="vettoreRagioneSociale" class="java.lang.String"/>
+	<field name="indirizzoVettore" class="java.lang.String"/>
+	<field name="CAPVettore" class="java.lang.String"/>
+	<field name="comuneVettore" class="java.lang.String"/>
+	<field name="provinciaVettore" class="java.lang.String"/>
+	<field name="statoVettore" class="java.lang.String"/>
+	<field name="PIVAvettore" class="java.lang.String"/>
+	<field name="alboVettore" class="java.lang.String"/>
+	<field name="autista" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<field name="centro" class="java.lang.String"/>
+	<field name="palletCaricati" class="java.lang.Short"/>
+	<field name="palletScaricati" class="java.lang.Short"/>
+	<field name="codeiceVettore" class="java.lang.String"/>
+	<field name="destinazioneVettore" class="java.lang.String"/>
+	<field name="nota1" class="java.lang.String"/>
+	<field name="nota2" class="java.lang.String"/>
+	<field name="rigodescrittivo" class="java.lang.String"/>
+	<field name="vettore2" class="java.lang.String"/>
+	<field name="curaTrasporto" class="java.lang.String"/>
+	<field name="aspettoEsteriore" class="java.lang.String"/>
+	<field name="causaleTrasporto" class="java.lang.String"/>
+	<field name="porto" class="java.lang.String"/>
+	<field name="origine" class="java.lang.String"/>
+	<field name="numeroPedaneEuro" class="java.lang.Integer"/>
+	<field name="numeroPedaneNormali" class="java.lang.Integer"/>
+	<field name="costoTrasporto" class="java.lang.Double"/>
+	<field name="totalePedaneOrdine" class="java.lang.Integer"/>
+	<field name="targa" class="java.lang.String"/>
+	<field name="targaRimorchio" class="java.lang.String"/>
+	<field name="rigoOrdine" class="java.lang.Integer"/>
+	<field name="descrizioneVariante" class="java.lang.String"/>
+	<field name="codiceArticolo" class="java.lang.String"/>
+	<field name="descrizione" class="java.lang.String"/>
+	<field name="unitaMisura" class="java.lang.String"/>
+	<field name="colli" class="java.lang.Short"/>
+	<field name="pesoLordo" class="java.lang.Double"/>
+	<field name="tara" class="java.lang.Double"/>
+	<field name="pesoNetto" class="java.lang.Double"/>
+	<field name="prezzo" class="java.lang.Double"/>
+	<field name="sconto1" class="java.lang.Float"/>
+	<field name="sconto2" class="java.lang.Integer"/>
+	<field name="sconto3" class="java.lang.Integer"/>
+	<field name="pedane" class="java.lang.Double"/>
+	<field name="note" class="java.lang.String"/>
+	<field name="totalePesata" class="java.lang.Double"/>
+	<field name="imballo" class="java.lang.String"/>
+	<field name="gestioneReti" class="java.lang.Short"/>
+	<field name="RtxCl" class="java.lang.Double"/>
+	<field name="kgRete" class="java.lang.Double"/>
+	<field name="lotto" class="java.lang.String"/>
+	<field name="passaporto" class="java.lang.String"/>
+	<field name="progressivo" class="java.lang.Long"/>
+	<field name="nomCombinata" class="java.lang.Double"/>
 	<field name="descrImballo" class="java.lang.String"/>
 	<field name="unitMisImballo" class="java.lang.String"/>
 	<field name="codiceBancaApp" class="java.lang.String"/>
