@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2017-08-08T11:41:43 -->
+<!-- 2017-08-08T15:48:58 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ddt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e3b4f04-7b69-4ed1-bcc0-bca4115e4ff1">
 	<property name="ireport.zoom" value="1.2396694214876038"/>
 	<property name="ireport.x" value="0"/>
@@ -45,7 +45,7 @@
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo, associato.ragione_sociale AS associatoRagSoc, associato.partita_iva AS associatoPIVA, associato.centro AS associatoCentro, associato.indirizzo AS associatoIndirizzo, associato.telefono AS associatoTelefono,associato.email AS associatoEmail FROM testata_rigo_view LEFT JOIN Articoli ON RanCodart = testata_rigo_view.imballo LEFT JOIN associato ON associato.id = testata_rigo_view.idAssociato WHERE anno = $P{year} AND nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento = $P{tipoDocumento}]]>
+		<![CDATA[SELECT testata_rigo_view.*, Articoli.RanDescri AS descrImballo, Articoli.RanUnimis AS unitMisImballo, ClientiFornitoriDatiAgg.RveEsenzi AS codiceEsenzione, associato.ragione_sociale AS associatoRagSoc, associato.partita_iva AS associatoPIVA, associato.centro AS associatoCentro, associato.indirizzo AS associatoIndirizzo, associato.telefono AS associatoTelefono,associato.email AS associatoEmail, ISNULL(VociIva.RiaAliquo,0) AS aliquota, VociIva.RiaDescri AS descrBreveIVA FROM testata_rigo_view LEFT JOIN Articoli ON RanCodart = testata_rigo_view.imballo LEFT JOIN ClientiFornitoriDatiAgg ON ClientiFornitoriDatiAgg.RveCodclf = testata_rigo_view.codiceSogetto LEFT JOIN VociIva ON ClientiFornitoriDatiAgg.RveEsenzi = VociIva.RiaCodiva LEFT JOIN associato ON associato.id = testata_rigo_view.idAssociato WHERE anno = $P{year} AND nOrdine = $P{WkNOrd} AND idAssociato = $P{idAssociato} AND tipoDocumento = $P{tipoDocumento}]]>
 	</queryString>
 	<field name="anno" class="java.lang.Short"/>
 	<field name="nOrdine" class="java.lang.Integer"/>
@@ -83,21 +83,21 @@
 	<field name="palletScaricati" class="java.lang.Short"/>
 	<field name="codeiceVettore" class="java.lang.String"/>
 	<field name="destinazioneVettore" class="java.lang.String"/>
-	<field name="nota1" class="java.lang.String"/>
-	<field name="nota2" class="java.lang.String"/>
-	<field name="rigodescrittivo" class="java.lang.String"/>
+	<field name="Nota1" class="java.lang.String"/>
+	<field name="Nota2" class="java.lang.String"/>
+	<field name="Rigodescrittivo" class="java.lang.String"/>
 	<field name="vettore2" class="java.lang.String"/>
 	<field name="curaTrasporto" class="java.lang.String"/>
 	<field name="aspettoEsteriore" class="java.lang.String"/>
 	<field name="causaleTrasporto" class="java.lang.String"/>
 	<field name="porto" class="java.lang.String"/>
-	<field name="origine" class="java.lang.String"/>
+	<field name="Origine" class="java.lang.String"/>
 	<field name="numeroPedaneEuro" class="java.lang.Integer"/>
 	<field name="numeroPedaneNormali" class="java.lang.Integer"/>
 	<field name="costoTrasporto" class="java.lang.Double"/>
 	<field name="totalePedaneOrdine" class="java.lang.Integer"/>
 	<field name="targa" class="java.lang.String"/>
-	<field name="targaRimorchio" class="java.lang.String"/>
+	<field name="TargaRimorchio" class="java.lang.String"/>
 	<field name="rigoOrdine" class="java.lang.Integer"/>
 	<field name="descrizioneVariante" class="java.lang.String"/>
 	<field name="codiceArticolo" class="java.lang.String"/>
@@ -122,45 +122,87 @@
 	<field name="passaporto" class="java.lang.String"/>
 	<field name="progressivo" class="java.lang.Long"/>
 	<field name="nomCombinata" class="java.lang.Double"/>
+	<field name="codiceIva" class="java.lang.String"/>
 	<field name="descrImballo" class="java.lang.String"/>
 	<field name="unitMisImballo" class="java.lang.String"/>
+	<field name="codiceEsenzione" class="java.lang.String"/>
 	<field name="associatoRagSoc" class="java.lang.String"/>
 	<field name="associatoPIVA" class="java.lang.String"/>
 	<field name="associatoCentro" class="java.lang.String"/>
 	<field name="associatoIndirizzo" class="java.lang.String"/>
 	<field name="associatoTelefono" class="java.lang.String"/>
 	<field name="associatoEmail" class="java.lang.String"/>
-	<variable name="colli_1" class="java.lang.Integer" resetType="Column" calculation="Sum">
+	<field name="aliquota" class="java.lang.Double"/>
+	<field name="descrBreveIVA" class="java.lang.String"/>
+	<variable name="colli_1" class="java.lang.Integer" calculation="Sum">
 		<variableExpression><![CDATA[$F{colli}]]></variableExpression>
 	</variable>
-	<variable name="pesoLordo_1" class="java.lang.Double" resetType="Column" calculation="Sum">
+	<variable name="pesoLordo_1" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{pesoLordo}]]></variableExpression>
 	</variable>
-	<variable name="pesoNetto_1" class="java.lang.Double" resetType="Column" calculation="Sum">
+	<variable name="pesoNetto_1" class="java.lang.Double" calculation="Sum">
 		<variableExpression><![CDATA[$F{pesoNetto}]]></variableExpression>
 	</variable>
+	<variable name="totale_iva" class="java.lang.Double"/>
+	<variable name="totale_imponibile" class="java.lang.Double"/>
 	<background>
 		<band height="700" splitType="Stretch">
 			<rectangle radius="10">
-				<reportElement x="0" y="253" width="553" height="421" forecolor="#CCCCCC" uuid="9685e708-0c3d-431e-a904-5b2f242736ba"/>
+				<reportElement x="0" y="240" width="553" height="375" forecolor="#CCCCCC" uuid="9685e708-0c3d-431e-a904-5b2f242736ba">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
 			</rectangle>
 			<line>
-				<reportElement x="90" y="253" width="1" height="421" forecolor="#CCCCCC" uuid="01be2f1c-bd0d-4ea8-b5d2-20e808897115"/>
+				<reportElement x="60" y="240" width="1" height="375" forecolor="#CCCCCC" uuid="01be2f1c-bd0d-4ea8-b5d2-20e808897115">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
 			</line>
 			<line>
-				<reportElement x="315" y="253" width="1" height="421" forecolor="#CCCCCC" uuid="8b3531b6-9dd5-4d1f-8c53-b9ebb9590e22"/>
+				<reportElement x="250" y="240" width="1" height="375" forecolor="#CCCCCC" uuid="8b3531b6-9dd5-4d1f-8c53-b9ebb9590e22">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 			</line>
 			<line>
-				<reportElement x="355" y="253" width="1" height="421" forecolor="#CCCCCC" uuid="42ff12f9-8374-4f1b-9b29-cd8383039d29"/>
+				<reportElement x="270" y="240" width="1" height="375" forecolor="#CCCCCC" uuid="42ff12f9-8374-4f1b-9b29-cd8383039d29">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 			</line>
 			<line>
-				<reportElement x="393" y="253" width="1" height="421" forecolor="#CCCCCC" uuid="157e8d16-9d1a-41ae-885e-ca8d9d1cbcad"/>
+				<reportElement x="298" y="240" width="1" height="375" forecolor="#CCCCCC" uuid="157e8d16-9d1a-41ae-885e-ca8d9d1cbcad">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 			</line>
 			<line>
-				<reportElement x="453" y="253" width="1" height="421" forecolor="#CCCCCC" uuid="f904f662-9e87-43d1-a47b-94196c6e7448"/>
+				<reportElement x="353" y="240" width="1" height="375" forecolor="#CCCCCC" uuid="f904f662-9e87-43d1-a47b-94196c6e7448">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 			</line>
 			<line>
-				<reportElement x="493" y="253" width="1" height="421" forecolor="#CCCCCC" uuid="b629baa4-ac82-4504-9d3b-ae499cc1a625"/>
+				<reportElement x="383" y="240" width="1" height="375" forecolor="#CCCCCC" uuid="b629baa4-ac82-4504-9d3b-ae499cc1a625">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="438" y="240" width="1" height="375" forecolor="#CCCCCC" uuid="d7d58893-f8ba-45c8-96f5-3b4dd8a4c4bf">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="483" y="240" width="1" height="375" forecolor="#CCCCCC" uuid="bbe35787-07d3-4f6d-ac36-628bf88486e7">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="533" y="240" width="1" height="375" forecolor="#CCCCCC" uuid="c61654d1-940b-4020-9578-0bf711c63420">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
 			</line>
 		</band>
 	</background>
@@ -294,7 +336,7 @@
 				<text><![CDATA[P. I.V.A. Soggetto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="513" y="160" width="50" height="10" uuid="39f887b8-6806-400d-838c-d182f01fd70a"/>
+				<reportElement x="510" y="160" width="43" height="10" uuid="39f887b8-6806-400d-838c-d182f01fd70a"/>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -305,14 +347,14 @@
 				<text><![CDATA[N.Pag.]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="513" y="170" width="10" height="20" uuid="98c09dae-caee-4cdc-bd49-0b3b3a5db24e"/>
+				<reportElement x="510" y="170" width="10" height="20" uuid="98c09dae-caee-4cdc-bd49-0b3b3a5db24e"/>
 				<textElement textAlignment="Right" verticalAlignment="Bottom">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
 			</textField>
 			<textField evaluationTime="Report">
-				<reportElement x="523" y="170" width="40" height="20" uuid="2720bce5-62fe-4db5-a555-70faf6e8efbe"/>
+				<reportElement x="523" y="170" width="30" height="20" uuid="2720bce5-62fe-4db5-a555-70faf6e8efbe"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="8"/>
 				</textElement>
@@ -341,7 +383,7 @@
 				<textFieldExpression><![CDATA[$F{codiceSogetto}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="411" y="160" width="102" height="10" uuid="278f7e20-2a22-4462-858c-32b7dc52e8af"/>
+				<reportElement x="411" y="160" width="99" height="10" uuid="278f7e20-2a22-4462-858c-32b7dc52e8af"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
@@ -376,7 +418,7 @@
 				<text><![CDATA[Annotazioni]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="340" y="200" width="223" height="20" uuid="9f1a08ae-d63c-442d-ac75-a68727468e92"/>
+				<reportElement x="340" y="200" width="213" height="20" uuid="9f1a08ae-d63c-442d-ac75-a68727468e92"/>
 				<box>
 					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -388,7 +430,7 @@
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="340" y="190" width="223" height="10" uuid="6c1bf57b-8d85-4163-b937-7542d4d5d037"/>
+				<reportElement x="340" y="190" width="213" height="10" uuid="6c1bf57b-8d85-4163-b937-7542d4d5d037"/>
 				<box>
 					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -482,7 +524,7 @@
 				<textFieldExpression><![CDATA[$F{pIVASoggetto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="411" y="171" width="102" height="20" uuid="4ed612e7-cb8b-4446-8deb-5df4c23747eb"/>
+				<reportElement x="411" y="171" width="99" height="20" uuid="4ed612e7-cb8b-4446-8deb-5df4c23747eb"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
@@ -520,7 +562,10 @@
 	<columnHeader>
 		<band height="21" splitType="Stretch">
 			<staticText>
-				<reportElement x="90" y="0" width="225" height="20" uuid="8084d4f3-6cda-4ecb-af41-e3a4a2213bc5"/>
+				<reportElement x="60" y="0" width="190" height="20" uuid="8084d4f3-6cda-4ecb-af41-e3a4a2213bc5">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -531,17 +576,22 @@
 				<text><![CDATA[Descrizione]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="315" y="0" width="40" height="20" uuid="19e26e7c-e2ce-4995-849c-d8f5eb824522"/>
+				<reportElement x="250" y="0" width="20" height="20" uuid="19e26e7c-e2ce-4995-849c-d8f5eb824522">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="8" isBold="true"/>
 				</textElement>
-				<text><![CDATA[Un.Mis]]></text>
+				<text><![CDATA[U.M.]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="355" y="0" width="38" height="20" uuid="96024c98-913f-48ac-95a2-244bbec3ce98"/>
+				<reportElement x="270" y="0" width="28" height="20" uuid="96024c98-913f-48ac-95a2-244bbec3ce98">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -551,7 +601,10 @@
 				<text><![CDATA[Colli]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="393" y="0" width="60" height="20" uuid="5f447c0e-8047-4026-b339-f2159ec5aceb"/>
+				<reportElement x="298" y="0" width="55" height="20" uuid="5f447c0e-8047-4026-b339-f2159ec5aceb">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -562,7 +615,10 @@
 				<text><![CDATA[Peso Lordo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="453" y="0" width="40" height="20" uuid="8c12fccf-dcdf-49dc-b0e5-f831696ac5f5"/>
+				<reportElement x="353" y="0" width="30" height="20" uuid="8c12fccf-dcdf-49dc-b0e5-f831696ac5f5">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -572,7 +628,9 @@
 				<text><![CDATA[Tara]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="493" y="0" width="60" height="20" uuid="b08b3c37-2a41-4401-a095-be47cf5786df"/>
+				<reportElement x="383" y="0" width="55" height="20" uuid="b08b3c37-2a41-4401-a095-be47cf5786df">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -583,7 +641,9 @@
 				<text><![CDATA[Peso Netto]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="0" width="90" height="20" uuid="983ff317-fe24-4a91-9f58-884ba6783789"/>
+				<reportElement x="0" y="0" width="60" height="20" uuid="983ff317-fe24-4a91-9f58-884ba6783789">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -596,12 +656,51 @@
 			<line>
 				<reportElement x="0" y="20" width="553" height="1" forecolor="#CCCCCC" uuid="0e006bb2-c305-4580-a939-7e01ec549d6e"/>
 			</line>
+			<staticText>
+				<reportElement x="438" y="0" width="45" height="20" uuid="42e1700d-e669-42b2-8ebc-95147655becb">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Prezzo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="483" y="0" width="50" height="20" uuid="a99bc74e-dd71-4639-8880-2b20ef7183a8">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Importo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="533" y="0" width="20" height="20" uuid="a24b2e14-25a1-4a8f-ba63-49feeee8ef37">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[C.I.]]></text>
+			</staticText>
 		</band>
 	</columnHeader>
 	<detail>
 		<band height="50" splitType="Immediate">
 			<textField>
-				<reportElement x="0" y="0" width="90" height="25" uuid="e9d7b287-7789-46c7-bddf-5f13b7db96cb"/>
+				<reportElement x="0" y="0" width="60" height="25" uuid="e9d7b287-7789-46c7-bddf-5f13b7db96cb"/>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -612,7 +711,9 @@
 				<textFieldExpression><![CDATA[$F{codiceArticolo}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="90" y="0" width="195" height="25" uuid="60e3806b-05d3-4827-92f3-de12e5a6b765"/>
+				<reportElement x="60" y="0" width="160" height="25" uuid="60e3806b-05d3-4827-92f3-de12e5a6b765">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -623,7 +724,10 @@
 				<textFieldExpression><![CDATA[$F{descrizione}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="315" y="0" width="40" height="25" uuid="5e7747a0-0944-49b8-bb40-5c99527fe427"/>
+				<reportElement x="250" y="0" width="20" height="25" uuid="5e7747a0-0944-49b8-bb40-5c99527fe427">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -634,7 +738,9 @@
 				<textFieldExpression><![CDATA[$F{unitaMisura}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="355" y="0" width="38" height="25" uuid="3b3feac0-7fb8-4ca3-b245-50179a350ed7"/>
+				<reportElement x="270" y="0" width="28" height="25" uuid="3b3feac0-7fb8-4ca3-b245-50179a350ed7">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -645,7 +751,7 @@
 				<textFieldExpression><![CDATA[$F{colli} != 0 ? $F{colli} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="393" y="0" width="60" height="25" uuid="e5133eb6-0976-4b73-98ff-225d1fe85e24"/>
+				<reportElement x="298" y="0" width="55" height="25" uuid="e5133eb6-0976-4b73-98ff-225d1fe85e24"/>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -656,10 +762,13 @@
 				<textFieldExpression><![CDATA[$F{pesoLordo} != 0 ? $F{pesoLordo} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="493" y="0" width="60" height="25" uuid="1b414051-f2f0-40c6-a037-7473c8f48f6b"/>
+				<reportElement x="383" y="0" width="55" height="25" uuid="1b414051-f2f0-40c6-a037-7473c8f48f6b">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
-					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<paragraph rightIndent="5"/>
@@ -667,7 +776,10 @@
 				<textFieldExpression><![CDATA[$F{pesoNetto} != 0 ? $F{pesoNetto} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="453" y="0" width="40" height="25" uuid="432f3e2b-a741-40ae-ae19-96e302a4c869"/>
+				<reportElement x="353" y="0" width="30" height="25" uuid="432f3e2b-a741-40ae-ae19-96e302a4c869">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -678,7 +790,9 @@
 				<textFieldExpression><![CDATA[$F{tara} != 0 ? $F{tara} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="285" y="0" width="30" height="25" uuid="b2044648-e144-4eb4-bbe4-2855d20de96b"/>
+				<reportElement x="220" y="0" width="30" height="25" uuid="b2044648-e144-4eb4-bbe4-2855d20de96b">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -689,7 +803,7 @@
 				<textFieldExpression><![CDATA[$F{descrizioneVariante}]]></textFieldExpression>
 			</textField>
 			<textField isStretchWithOverflow="true">
-				<reportElement x="90" y="25" width="195" height="25" uuid="d9fa94f4-bdb0-4259-ae49-67cfa5e954f9"/>
+				<reportElement x="60" y="25" width="160" height="25" uuid="d9fa94f4-bdb0-4259-ae49-67cfa5e954f9"/>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -699,11 +813,56 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{lotto}]]></textFieldExpression>
 			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement x="438" y="0" width="45" height="25" uuid="1ff3be30-4d47-40d8-892a-9c564109255c">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pesoNetto} != 0 ? $F{prezzo} : ""]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.00#">
+				<reportElement x="483" y="0" width="50" height="25" uuid="df45418b-468f-4b4f-85a1-23bace7273ee">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pesoNetto} != 0 ? $F{prezzo} * $F{pesoNetto} : ""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="533" y="0" width="20" height="25" uuid="bf063970-eaa1-444d-a30c-2abaf195ec9b">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[//$F{pesoNetto} != 0 ? $F{codiceIva} : ""
+($F{prezzo} != 0) ? (($F{codiceEsenzione} != "") ? $F{codiceEsenzione} : $F{codiceIva}) : ""]]></textFieldExpression>
+			</textField>
 		</band>
 		<band height="26">
 			<printWhenExpression><![CDATA[$F{codiceArticolo} != ""]]></printWhenExpression>
 			<textField>
-				<reportElement x="90" y="0" width="225" height="25" uuid="7cdd32bf-92ee-42fc-af2b-a7be9c0e6828"/>
+				<reportElement x="60" y="0" width="190" height="25" uuid="7cdd32bf-92ee-42fc-af2b-a7be9c0e6828">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -714,7 +873,7 @@
 				<textFieldExpression><![CDATA[($F{codiceArticolo} != "") ? $F{descrImballo} : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="0" width="90" height="25" uuid="7b6f96a9-333c-4315-b760-0ab49d1ea121"/>
+				<reportElement x="0" y="0" width="60" height="25" uuid="7b6f96a9-333c-4315-b760-0ab49d1ea121"/>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -725,7 +884,9 @@
 				<textFieldExpression><![CDATA[$F{imballo}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="315" y="0" width="40" height="25" uuid="74104b97-8625-4639-82e8-a83eaf206da4"/>
+				<reportElement x="250" y="0" width="20" height="25" uuid="74104b97-8625-4639-82e8-a83eaf206da4">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -736,7 +897,7 @@
 				<textFieldExpression><![CDATA[($F{codiceArticolo} != "") ? $F{unitMisImballo}: ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="355" y="0" width="38" height="25" uuid="918fd6bc-ac87-452d-a089-50bb10b50b51"/>
+				<reportElement x="270" y="0" width="28" height="25" uuid="918fd6bc-ac87-452d-a089-50bb10b50b51"/>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -758,15 +919,17 @@
 		<band height="5" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="124" splitType="Stretch">
+		<band height="180">
 			<rectangle radius="10">
-				<reportElement x="0" y="0" width="553" height="120" forecolor="#CCCCCC" backcolor="#FFFFFF" uuid="dadff127-c1b8-4419-9ece-234cea73d4eb"/>
+				<reportElement x="0" y="0" width="553" height="180" forecolor="#CCCCCC" backcolor="#FFFFFF" uuid="567b1e9a-5efc-4e6f-8401-eb0379e9dfd6">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
 			</rectangle>
 			<line>
-				<reportElement x="0" y="30" width="553" height="1" forecolor="#CCCCCC" uuid="6d6f2644-5d06-4cd0-b02c-0cb7f5cb7570"/>
+				<reportElement x="0" y="30" width="553" height="1" forecolor="#CCCCCC" uuid="1c0cbcde-e91e-4781-87d5-83492d11aa56"/>
 			</line>
 			<staticText>
-				<reportElement x="95" y="0" width="95" height="10" uuid="2cf6c5d2-1e31-43b5-bfc0-d0fdebbf45f6"/>
+				<reportElement x="95" y="0" width="95" height="10" uuid="dab7909b-5ef7-4515-b294-b3e0118ed548"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
@@ -777,7 +940,7 @@
 				<text><![CDATA[Trasporto a cura del]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="0" width="95" height="10" uuid="1ae195f6-a007-4870-824c-654e4ad66152"/>
+				<reportElement x="0" y="0" width="95" height="10" uuid="9d348e2f-c29a-4bbc-b11f-88f36f4ecf88"/>
 				<box>
 					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
@@ -789,7 +952,7 @@
 				<text><![CDATA[Aspetto esteriore dei beni]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="95" y="10" width="95" height="20" uuid="994a7256-97a9-400c-8134-f488dac91e26"/>
+				<reportElement x="95" y="10" width="95" height="20" uuid="5f0480f3-73fb-4ec8-afe0-62c94f03be5c"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
@@ -800,7 +963,7 @@
 				<textFieldExpression><![CDATA[$F{curaTrasporto}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="60" width="280" height="10" uuid="63e57f8c-aeee-4711-86a5-dba23398d0d5"/>
+				<reportElement x="0" y="120" width="280" height="10" uuid="62d56ead-e583-4715-8067-b1304e0948e8"/>
 				<box>
 					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
@@ -812,10 +975,12 @@
 				<text><![CDATA[Firma Vettore]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="60" width="553" height="1" forecolor="#CCCCCC" uuid="83f99b2f-20d1-45a3-8233-89c2db8656c8"/>
+				<reportElement x="0" y="150" width="553" height="1" forecolor="#CCCCCC" uuid="a5f21680-c83d-4d25-90dc-18145a4701ce">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
 			</line>
 			<textField>
-				<reportElement x="0" y="10" width="95" height="20" uuid="bccf5188-9b62-401b-9011-9a35b35ec2f3"/>
+				<reportElement x="0" y="10" width="95" height="20" uuid="b4e2f2a6-bcfd-4cef-ba59-3883e76b8858"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
@@ -826,7 +991,7 @@
 				<textFieldExpression><![CDATA[$F{aspettoEsteriore}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="190" y="0" width="95" height="10" uuid="42843ac3-fc71-4fa3-b0f7-170e1b7d7442"/>
+				<reportElement x="190" y="0" width="95" height="10" uuid="bda01166-f707-4d0a-a249-88d24e5339b2"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
@@ -837,7 +1002,7 @@
 				<text><![CDATA[Causale del trasporto]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="190" y="10" width="95" height="20" uuid="c22f8203-466b-4180-abdb-2dc00c3d750d"/>
+				<reportElement x="190" y="10" width="95" height="20" uuid="ad7e02e4-87a2-478e-b389-f2d64536cb9f"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
@@ -848,7 +1013,7 @@
 				<textFieldExpression><![CDATA[$F{causaleTrasporto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="285" y="10" width="35" height="20" uuid="a711c3a4-6dac-4f98-bb8c-a2fc74462ba5"/>
+				<reportElement x="285" y="10" width="35" height="20" uuid="a1b57059-084b-4591-83b8-0d486e55f4da"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
@@ -859,7 +1024,7 @@
 				<textFieldExpression><![CDATA[$V{colli_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="285" y="0" width="35" height="10" uuid="a58b464e-3cff-4308-8ee7-bf008e9d1236"/>
+				<reportElement x="285" y="0" width="35" height="10" uuid="79e49042-4d21-4bad-9501-701f24e64c13"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
@@ -870,7 +1035,7 @@
 				<text><![CDATA[N. Colli]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="320" y="0" width="60" height="10" uuid="a9c3521b-abcc-4e95-96ba-17105c2777fd"/>
+				<reportElement x="320" y="0" width="60" height="10" uuid="9ee21d6d-e371-4790-a165-ab2cc957f080"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
@@ -881,7 +1046,7 @@
 				<text><![CDATA[Peso Lordo]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="320" y="10" width="60" height="20" uuid="4f737475-03fb-455b-9e6b-c9e64b01c2a7"/>
+				<reportElement x="320" y="10" width="60" height="20" uuid="ce9d7e26-6613-444e-93dc-4b65f40f64d1"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
@@ -892,7 +1057,7 @@
 				<textFieldExpression><![CDATA[$V{pesoLordo_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="380" y="0" width="60" height="10" uuid="04c421ad-eabc-4efd-9082-bdb39bc62b56"/>
+				<reportElement x="380" y="0" width="60" height="10" uuid="33c072a8-8dff-4b57-9bd0-a20f467b842c"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
@@ -903,7 +1068,7 @@
 				<text><![CDATA[Peso Netto]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="380" y="10" width="60" height="20" uuid="d31190dd-51e8-4c94-a2b3-5f899cb27a4f"/>
+				<reportElement x="380" y="10" width="60" height="20" uuid="c0d1e7e0-5741-4b9d-b0f9-1294ecd02f3a"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
@@ -914,7 +1079,7 @@
 				<textFieldExpression><![CDATA[$V{pesoNetto_1}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="440" y="0" width="113" height="10" uuid="7cc25ef5-082b-410d-aeca-69288c02d399"/>
+				<reportElement x="440" y="0" width="113" height="10" uuid="66e72f46-f5f5-46d8-a35e-058cba755723"/>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -925,7 +1090,7 @@
 				<text><![CDATA[Data e ora inizio trasporto]]></text>
 			</staticText>
 			<textField pattern="dd/MM/yyyy HH.mm.ss">
-				<reportElement x="440" y="10" width="113" height="20" uuid="4e3f6021-c68f-4461-8473-b494580fbd6d"/>
+				<reportElement x="440" y="10" width="113" height="20" uuid="f3bdfc2f-af65-41cd-bbf6-d9ba2bae7fdb"/>
 				<textElement verticalAlignment="Bottom">
 					<font size="8"/>
 					<paragraph leftIndent="5"/>
@@ -933,7 +1098,7 @@
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="0" y="30" width="553" height="10" uuid="d581ac53-cf50-4462-877b-6c586ebb6c11"/>
+				<reportElement x="0" y="91" width="553" height="10" uuid="8287ab28-3457-426f-aebe-2366cd5ce4e9"/>
 				<box>
 					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
@@ -945,7 +1110,7 @@
 				<text><![CDATA[Vettore]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="40" width="553" height="20" uuid="109faef2-914e-42f7-95db-e6bb8641cca0">
+				<reportElement x="0" y="100" width="553" height="20" uuid="8650c84c-94a2-4182-b248-2148f25b7824">
 					<printWhenExpression><![CDATA[$F{vettore} != ""]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Bottom">
@@ -958,7 +1123,7 @@
 + " - " + $F{PIVAvettore} + " - N.I. Albo: " + $F{alboVettore}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement x="280" y="60" width="136" height="10" uuid="3ea0ae91-7723-49d1-85db-87e7ce68d198"/>
+				<reportElement x="280" y="120" width="136" height="10" uuid="4d70d1c4-df40-4e0e-8473-cae436f196af"/>
 				<box>
 					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
@@ -970,7 +1135,7 @@
 				<text><![CDATA[Data Ritiro]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="416" y="60" width="136" height="10" uuid="31506496-b6ee-487a-9370-d57ed88d8b7b"/>
+				<reportElement x="416" y="120" width="136" height="10" uuid="e64e6f2e-5e9b-4ee0-9cd6-b78a8fd7547b"/>
 				<box>
 					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -982,28 +1147,30 @@
 				<text><![CDATA[Ora Ritiro]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="70" width="280" height="20" uuid="dc3f07aa-5962-4594-b7ce-96723996f9ae"/>
+				<reportElement x="0" y="130" width="280" height="20" uuid="10484e26-1380-4939-a348-316ea8e6e125"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="70" width="136" height="20" uuid="7d246808-22a1-45b3-8b3e-cd476cacbf27"/>
+				<reportElement x="280" y="130" width="136" height="20" uuid="981f574d-e1d9-4086-ba54-672b857be17c"/>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="416" y="70" width="136" height="20" uuid="cf72ba3e-0486-47be-93b1-5bb7ddcb6834"/>
+				<reportElement x="416" y="130" width="136" height="20" uuid="3a9abfee-7ee0-4d46-847d-ed39fe0146ef"/>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="90" width="280" height="10" uuid="e7ed65b1-e888-49a3-8e83-ecaaf411b181"/>
+				<reportElement x="0" y="150" width="280" height="10" uuid="7691c744-91d6-4c27-bd99-a35abcac6bb3">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
 				<box>
 					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
@@ -1015,21 +1182,25 @@
 				<text><![CDATA[Firma Conducente]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="0" y="100" width="280" height="20" uuid="569b3c52-ae28-42ac-bb29-558ff11bd413"/>
+				<reportElement x="0" y="160" width="280" height="20" uuid="0b52a116-1813-410c-b323-27b4fa8f54c8">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="100" width="280" height="20" uuid="34ebc637-caae-432d-90ad-63b2d0514943"/>
+				<reportElement x="280" y="160" width="273" height="20" uuid="5a03906a-68d0-45bb-8907-b98b0670c653"/>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="280" y="90" width="280" height="10" uuid="d83221cc-9b2f-4873-9131-aab80c8739eb"/>
+				<reportElement x="280" y="150" width="273" height="10" uuid="de414768-37b1-4fc3-b10f-4e286a9a763a">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -1040,10 +1211,548 @@
 				<text><![CDATA[Firma Destinatario]]></text>
 			</staticText>
 			<line>
-				<reportElement x="0" y="90" width="553" height="1" forecolor="#CCCCCC" uuid="f64a8753-e125-4415-86aa-7483eb68ce51"/>
+				<reportElement x="0" y="120" width="553" height="1" forecolor="#CCCCCC" uuid="452f7102-9796-4efa-93a6-0628e8f9ab86">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
 			</line>
+			<line>
+				<reportElement x="0" y="91" width="553" height="1" forecolor="#CCCCCC" uuid="14a77a58-a5bc-4bed-b9bc-639b4ccb3163"/>
+			</line>
+			<staticText>
+				<reportElement x="269" y="31" width="91" height="10" uuid="52641eb1-41cc-49ed-bd98-84a78b39abc5">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Totale imponibile]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="31" width="90" height="10" uuid="45de4d42-ba59-426e-bc51-d1cdbefab765">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Totale I.V.A.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="31" width="102" height="10" uuid="653d2ad0-41e3-4fda-a7bb-6107a3878f40">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Totale Documento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="41" width="33" height="49" uuid="4864c35b-2b0c-4363-b614-e540a7d874fe">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="10" isBold="true"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[EUR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="41" width="28" height="49" uuid="86817493-5764-444e-a7e2-a1753a3273c2">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[EUR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="41" width="30" height="49" uuid="ed8f976e-9b1f-437d-a03c-53afd9c0adf3">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[EUR]]></text>
+			</staticText>
 		</band>
 	</pageFooter>
+	<lastPageFooter>
+		<band height="180">
+			<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+			<rectangle radius="10">
+				<reportElement x="0" y="0" width="553" height="180" forecolor="#CCCCCC" backcolor="#FFFFFF" uuid="458d1e0d-24c6-41bd-a441-2b5237eed5e9">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+			</rectangle>
+			<line>
+				<reportElement x="0" y="30" width="553" height="1" forecolor="#CCCCCC" uuid="d15c76b4-2b45-42c5-96eb-1ff8530aef62"/>
+			</line>
+			<staticText>
+				<reportElement x="95" y="0" width="95" height="10" uuid="56f1ecc5-d278-4ed2-a645-a8cb3d057703"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Trasporto a cura del]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="95" height="10" uuid="d9e3c55b-7f17-400e-b32e-88c3b0dd57e5"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Aspetto esteriore dei beni]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="95" y="10" width="95" height="20" uuid="f569bb39-a8d9-4c30-add1-fcb2a6168ee4"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{curaTrasporto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="120" width="280" height="10" uuid="6d3b6dba-3749-4629-b765-5384ff077b7d"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Firma Vettore]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="90" width="553" height="1" forecolor="#CCCCCC" uuid="6c0c2595-1be1-40db-a448-b82b88b66d50"/>
+			</line>
+			<textField>
+				<reportElement x="0" y="10" width="95" height="20" uuid="d29e312e-3c14-481b-ae7f-3f00252d2cbe"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aspettoEsteriore}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="190" y="0" width="95" height="10" uuid="4574881a-9153-40ff-9ff0-ab35fca179d5"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Causale del trasporto]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="190" y="10" width="95" height="20" uuid="9b40d250-6933-4056-a1cc-ec4cc9ff81da"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{causaleTrasporto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="285" y="10" width="35" height="20" uuid="33e797f4-c63c-4537-9ee9-a2e3777de427"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{colli_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="285" y="0" width="35" height="10" uuid="e5d04e36-1454-4cc6-b833-b9f86cc7d43e"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[N. Colli]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="320" y="0" width="60" height="10" uuid="e50332aa-626d-4cac-b047-af13ffb75d8d"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Peso Lordo]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="320" y="10" width="60" height="20" uuid="0f3c59d2-658f-480d-84f5-7b8a329f9d07"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pesoLordo_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="380" y="0" width="60" height="10" uuid="723ecc1a-0668-4102-b5e8-54d1df4a9565"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Peso Netto]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="380" y="10" width="60" height="20" uuid="7952921a-cdd9-4003-96be-bf83e3b63412"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pesoNetto_1}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="440" y="0" width="113" height="10" uuid="beaddefe-8f92-4451-a20c-a51364d4af25"/>
+				<box>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Data e ora inizio trasporto]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy HH.mm.ss">
+				<reportElement x="440" y="10" width="113" height="20" uuid="86106d47-379e-408c-a060-83927f10e280"/>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="91" width="553" height="10" uuid="4204adf3-0b14-4770-bbc9-3a1ac36f375f"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Vettore]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="100" width="553" height="20" uuid="7bb53dcb-c398-4649-a92a-70a4f853cb0b">
+					<printWhenExpression><![CDATA[$F{vettore} != ""]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Bottom">
+					<font size="8"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{vettoreRagioneSociale} + " - " + $F{indirizzoVettore}
++ " - " + $F{CAPVettore} + " - " + $F{comuneVettore}
++ " ("+ $F{provinciaVettore} +") - " + $F{statoVettore}
++ " - " + $F{PIVAvettore} + " - N.I. Albo: " + $F{alboVettore}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="280" y="120" width="136" height="10" uuid="70229fc0-82c6-4a34-a370-f631f4981f4f"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Data Ritiro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="120" width="136" height="10" uuid="804f5942-ec02-4f40-b9f1-1ad29b7135b4"/>
+				<box>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Ora Ritiro]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="130" width="280" height="20" uuid="8f0d5714-f92d-4fe3-8e5a-827ccd688404"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="130" width="136" height="20" uuid="f6d1b379-9729-4de7-bcfd-9e4770a6958f"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="130" width="136" height="20" uuid="6bfe1ac6-605d-4465-9fac-8c74beb73aff"/>
+				<box>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="150" width="280" height="10" uuid="8a3008c9-727f-4296-bc6f-495c99f77d89">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Firma Conducente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="160" width="280" height="20" uuid="7ab9f10a-6db1-458d-90df-15cca38a9dae">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="160" width="273" height="20" uuid="5f8e0bac-af26-466e-aff6-704d63ab0eac"/>
+				<box>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="280" y="150" width="273" height="10" uuid="f653ecbd-8042-44ac-bf68-a4ead59a137e">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Firma Destinatario]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="120" width="553" height="1" forecolor="#CCCCCC" uuid="87c96ea8-25c6-428a-aa53-75ebf4b7ad15">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+			</line>
+			<line>
+				<reportElement x="0" y="150" width="553" height="1" forecolor="#CCCCCC" uuid="c99b9533-2c9f-47a9-8441-f14c93f3e11a">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+			</line>
+			<subreport>
+				<reportElement x="0" y="31" width="269" height="58" uuid="c6e191aa-180d-447d-a8b7-7ff9ab666f00">
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<subreportParameter name="year">
+					<subreportParameterExpression><![CDATA[$P{year}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="WkNOrd">
+					<subreportParameterExpression><![CDATA[$P{WkNOrd}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idAssociato">
+					<subreportParameterExpression><![CDATA[$P{idAssociato}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="tipoDocumento">
+					<subreportParameterExpression><![CDATA[$P{tipoDocumento}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="codice_esenzione">
+					<subreportParameterExpression><![CDATA[$F{codiceEsenzione}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="descrizione_esenzione">
+					<subreportParameterExpression><![CDATA[$F{descrBreveIVA}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="aliquota">
+					<subreportParameterExpression><![CDATA[$F{aliquota}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<returnValue subreportVariable="totale_iva" toVariable="totale_iva"/>
+				<returnValue subreportVariable="totale_imponibile" toVariable="totale_imponibile"/>
+				<subreportExpression><![CDATA["./castelletto_iva.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="269" y="31" width="91" height="10" uuid="162d99ba-cdb7-4b75-a245-9054e3d60431">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					<bottomPen lineWidth="0.0" lineColor="#CCCCCC"/>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Totale imponibile]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="31" width="90" height="10" uuid="c098c8e9-27df-4227-81dd-e25afe9ecd2b">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Totale I.V.A.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="41" width="33" height="49" uuid="73b52af4-354d-45af-a44e-1388a51fb047">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="10" isBold="true"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[EUR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="31" width="102" height="10" uuid="4973d3f2-511f-45e9-8fed-4078ac1e26d6">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Totale Documento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="360" y="41" width="32" height="49" uuid="1e89139c-9975-46a6-87c9-5499cbbdd537">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[EUR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="41" width="30" height="49" uuid="322b1fc5-e14b-49e0-aa2a-e75097e69ea3">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
+				<box>
+					<leftPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+					<paragraph leftIndent="3"/>
+				</textElement>
+				<text><![CDATA[EUR]]></text>
+			</staticText>
+			<textField evaluationTime="Band" pattern="#,##0.00#">
+				<reportElement x="300" y="70" width="60" height="20" uuid="b3385918-81c5-40b3-a4b5-8203b81e2bc4"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totale_imponibile}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Band" pattern="#,##0.00#">
+				<reportElement x="392" y="70" width="60" height="20" uuid="66a7800f-dd2d-4808-b433-1722560fc1c3"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totale_iva}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Band" pattern="#,##0.00#">
+				<reportElement x="483" y="70" width="70" height="20" uuid="bd87e251-c79b-4499-ba9a-f55847c977ea"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totale_imponibile} + $V{totale_iva}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
 	<summary>
 		<band height="83" splitType="Stretch"/>
 	</summary>
