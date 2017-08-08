@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2017-08-08T11:19:59 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cessione_credito_1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3d0663d9-2421-47c3-89fb-88c3e5265211">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="gestionaleop.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="idAssociato" class="java.lang.Long"/>
+	<parameter name="anno" class="java.lang.Integer"/>
+	<parameter name="body" class="java.lang.String"/>
+	<parameter name="dataFattura" class="java.lang.String"/>
+	<parameter name="numeroFattura" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT *
+FROM CessioneCredito_View
+WHERE 
+	 CessioneCredito_View.id_associato = $P{idAssociato} 
+	 AND CessioneCredito_View.numero_fattura = $P{numeroFattura} 
+	 AND CessioneCredito_View.anno = $P{anno}]]>
+	</queryString>
+	<field name="RacCap" class="java.lang.String"/>
+	<field name="RacComune" class="java.lang.String"/>
+	<field name="RacIndiri" class="java.lang.String"/>
+	<field name="RacPariva" class="java.lang.String"/>
+	<field name="RacRagso1" class="java.lang.String"/>
+	<field name="RacSigpro" class="java.lang.String"/>
+	<field name="RacSigsta" class="java.lang.String"/>
+	<field name="ragione_sociale" class="java.lang.String"/>
+	<field name="partita_iva" class="java.lang.String"/>
+	<field name="indirizzo" class="java.lang.String"/>
+	<field name="centro" class="java.lang.String"/>
+	<field name="note" class="java.lang.String"/>
+	<field name="id_associato" class="java.lang.Integer"/>
+	<field name="numero_fattura" class="java.lang.Integer"/>
+	<field name="anno" class="java.lang.Short"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="218" splitType="Stretch">
+			<image>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="200" height="70" uuid="8760ee46-37c1-427a-a359-64ba42b4aa51"/>
+				<imageExpression><![CDATA["./images/BySoftware.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="0" y="70" width="228" height="80" uuid="f6ac168e-a1e4-4445-b1d4-729ab77f6f3a"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Via Duca D'Aosta, 2\n95032 - Belpasso(CT) - Italy\nTel +39 095 918 325\nP. IVA 04961980879\nNum. Iscr. Albo Coop. A222959\nB.N.D.O.O. n° 0113835 - R.U.P. n° 18/1380\ninfo@bysoftware.ct.it"]]></textFieldExpression>
+			</textField>
+			<rectangle radius="10">
+				<reportElement x="245" y="2" width="293" height="216" forecolor="#CCCCCC" backcolor="#FFFFFF" uuid="83842bad-e08c-4566-ac7f-dad980d11c01"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="255" y="5" width="100" height="22" uuid="efec40d9-9a61-4e6b-b273-24863ebcc8cc"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SPETT. LE:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="255" y="27" width="272" height="30" uuid="a82b34c5-2571-48ac-b8e1-8885ea2a7902"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RacRagso1}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="255" y="57" width="272" height="21" uuid="2d062e7e-a27e-4b14-9f72-7e5e8ef5f96f"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RacIndiri}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="255" y="78" width="272" height="30" uuid="beae2811-92e2-4571-a337-b1527fe05215"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RacCap} + " - " + $F{RacComune} + " (" + $F{RacSigpro} + ") - " + $F{RacSigsta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="118" width="100" height="19" uuid="276bdc03-296a-4cf5-924c-89767e01dcae"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[P. C.]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="255" y="138" width="271" height="30" uuid="a0b2550a-c96c-4eb9-a318-f79f3281d2b6"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ragione_sociale}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="255" y="168" width="272" height="30" uuid="e815735a-f028-4b3f-8918-db73ce02200b"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{indirizzo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="245" y="110" width="293" height="1" forecolor="#CCCCCC" uuid="2693a31e-6e29-414b-bf4d-04c40394a786"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="80" splitType="Stretch">
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="80" y="0" width="200" height="30" uuid="ba8a0206-23b5-4baa-9217-f73c13aadb08"/>
+				<textElement>
+					<font size="12" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataFattura}.isEmpty() ? new java.util.Date() : $P{dataFattura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="80" height="30" uuid="5b93c1c7-88de-4d66-9891-f03eb250ff7c"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="30" width="539" height="20" uuid="5303cd7c-a1fb-476e-afaf-ce489593ca4e"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OGGETTO: CESSIONE DI CREDITO PRO SOLUTO DIRETTAMENTE AL SOCIO]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="50" width="539" height="30" uuid="ad57d098-2bd6-4aa8-a638-2729ca9fb753"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ragione_sociale} + ", "+ $F{indirizzo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="320" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="28" width="539" height="200" uuid="23f7193b-5e98-4db6-a834-20f9e9254711"/>
+				<textElement textAlignment="Justified" verticalAlignment="Justified" markup="html">
+					<font size="14"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{body}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="243" width="80" height="30" uuid="c6228d32-8e11-4a18-a1b2-c9db115fd897"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[CATANIA, ]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="80" y="243" width="148" height="30" uuid="9d333cce-15a2-42d3-a77e-d6b711b408d4"/>
+				<textElement>
+					<font size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{dataFattura}.isEmpty() ? new java.util.Date() : $P{dataFattura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="255" y="243" width="284" height="30" uuid="725aa6ea-c1c4-4ffc-ae02-12cc4121bde8"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[SPETT. LE    ________________________]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="255" y="290" width="284" height="30" uuid="382a1b8f-f865-4a54-8d82-80f2eddd668a"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<text><![CDATA[P. C.              ________________________]]></text>
+			</staticText>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="539" height="54" uuid="31f9853c-b272-49f3-8230-644551923f9e"/>
+				<textElement>
+					<paragraph lineSpacing="1_1_2" leftIndent="20" rightIndent="20"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{note}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

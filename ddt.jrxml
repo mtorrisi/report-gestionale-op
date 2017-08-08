@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2017-07-24T14:37:34 -->
+<!-- 2017-08-08T11:41:43 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ddt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e3b4f04-7b69-4ed1-bcc0-bca4115e4ff1">
 	<property name="ireport.zoom" value="1.2396694214876038"/>
 	<property name="ireport.x" value="0"/>
@@ -172,10 +172,6 @@
 			<rectangle radius="10">
 				<reportElement x="260" y="0" width="293" height="151" forecolor="#CCCCCC" backcolor="#FFFFFF" uuid="4598619b-281e-4db3-b5b3-dc795bf86ce4"/>
 			</rectangle>
-			<image>
-				<reportElement x="0" y="-19" width="200" height="70" uuid="f55d75ae-b239-4079-be7c-471b99ce796a"/>
-				<imageExpression><![CDATA["./images/opnatura-logo1.jpg"]]></imageExpression>
-			</image>
 			<line>
 				<reportElement x="260" y="72" width="293" height="1" forecolor="#CCCCCC" uuid="0f5e0641-5ab9-43a4-9a86-ff43dbc3b4af"/>
 			</line>
@@ -502,18 +498,22 @@
 				<textFieldExpression><![CDATA[$F{indirizzoSoggetto} + "\n" + $F{CAPSoggetto} + " " + $F{comuneSoggetto} + " ("+ $F{provinciaSoggetto} +") - " + $F{StatoSoggetto}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="50" width="248" height="62" uuid="b7597a32-8be1-41da-8793-3b983492b131"/>
-				<textElement>
-					<font size="9"/>
-				</textElement>
-				<textFieldExpression><![CDATA["Via Pietro Mancini, 11\n89024 Polistena(RC) Italy\nTel +39 0966 930031 FAX +39 0966 937890\nP. IVA 02741250803\nNum. Iscr. Albo Coop. A222959\nB.N.D.O.O. n° 0113835 - R.U.P. n° 18/1380\ninfo@opnatura.com"]]></textFieldExpression>
-			</textField>
-			<textField>
 				<reportElement x="0" y="112" width="260" height="48" uuid="5bfd03e8-5550-4e1e-a721-8ff28466ba2f"/>
 				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA["Su conferimento di: \n" + $F{associatoRagSoc} + ", " + $F{associatoIndirizzo} + "\nP. IVA: " + $F{associatoPIVA} + (($F{associatoTelefono} != "") ? ", Tel. " + $F{associatoTelefono} : "" ) + "\n" + $F{associatoEmail}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="-15" width="200" height="70" uuid="89a5a08b-cc8b-41b8-bb29-6bf79ba0fd8d"/>
+				<imageExpression><![CDATA["./images/BySoftware.jpg"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="2" y="55" width="248" height="62" uuid="3eb6f931-901a-4c43-ac59-9e760a48458b"/>
+				<textElement>
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Via Duca d'Aosta, 2\n95032 Belpasso (CT) Italy\nTel +39 095 918 325 FAX +39 095 123 456\nP. IVA 02741250803\nNum. Iscr. Albo Coop. A222959\nB.N.D.O.O. n° 0113835 - R.U.P. n° 18/1380\ninfo@bysoftware.ct"]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageHeader>
@@ -700,7 +700,7 @@
 				<textFieldExpression><![CDATA[$F{lotto}]]></textFieldExpression>
 			</textField>
 		</band>
-		<band height="25">
+		<band height="26">
 			<printWhenExpression><![CDATA[$F{codiceArticolo} != ""]]></printWhenExpression>
 			<textField>
 				<reportElement x="90" y="0" width="225" height="25" uuid="7cdd32bf-92ee-42fc-af2b-a7be9c0e6828"/>
@@ -746,6 +746,12 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{colli} != 0 ? $F{colli} : ""]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="0" y="25" width="553" height="1" forecolor="#CCCCCC" uuid="6ba1cfb4-1239-4806-9d6b-324a549550ef">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+				</reportElement>
+			</line>
 		</band>
 	</detail>
 	<columnFooter>

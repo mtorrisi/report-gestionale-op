@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
+<!-- 2017-08-07T11:54:34 -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="castelletto_iva1" language="groovy" pageWidth="269" pageHeight="50" columnWidth="269" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="42899ac0-dea6-476c-8f6d-28e88bf510ec">
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="gestionaleop.xml"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="year" class="java.lang.Integer"/>
+	<parameter name="WkNOrd" class="java.lang.Integer"/>
+	<parameter name="idAssociato" class="java.lang.Integer"/>
+	<parameter name="tipoDocumento" class="java.lang.String"/>
+	<parameter name="codice_esenzione" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="descrizione_esenzione" class="java.lang.String">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<parameter name="aliquota" class="java.lang.Double">
+		<defaultValueExpression><![CDATA[0]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT * FROM CastellettoIva_View WHERE WKAnno = $P{year} AND WkNOrd = $P{WkNOrd} AND WKTipdoc = $P{tipoDocumento} AND id_associato = $P{idAssociato}]]>
+	</queryString>
+	<field name="WKAnno" class="java.lang.Short"/>
+	<field name="WkNOrd" class="java.lang.Integer"/>
+	<field name="WKTipdoc" class="java.lang.String"/>
+	<field name="id_associato" class="java.lang.Integer"/>
+	<field name="WkPesnet" class="java.lang.Double"/>
+	<field name="WkPrezzo" class="java.lang.Double"/>
+	<field name="sconto1" class="java.lang.Float"/>
+	<field name="sconto2" class="java.lang.Integer"/>
+	<field name="sconto3" class="java.lang.Integer"/>
+	<field name="CodIva" class="java.lang.String"/>
+	<field name="RiaAliquo" class="java.lang.Double"/>
+	<field name="RiaDescri" class="java.lang.String"/>
+	<variable name="WkPrezzo1" class="java.lang.Double" resetType="Group" resetGroup="Gruppo1" calculation="Sum">
+		<variableExpression><![CDATA[$F{WkPesnet} * $F{WkPrezzo} *  (1 - ($F{sconto1} * 0.01))]]></variableExpression>
+	</variable>
+	<variable name="RiaAliquo1" class="java.lang.Double" resetType="Group" resetGroup="Gruppo1" calculation="Sum">
+		<variableExpression><![CDATA[$P{codice_esenzione}.equals("") ? $F{WkPesnet} * $F{WkPrezzo} *  (1 - ($F{sconto1} * 0.01)) * $F{RiaAliquo} * 0.01 : $F{WkPesnet} * $F{WkPrezzo} *  (1 - ($F{sconto1} * 0.01)) *  $P{aliquota} * 0.01]]></variableExpression>
+	</variable>
+	<variable name="totale_iva" class="java.lang.Double" incrementType="Group" incrementGroup="Gruppo1" calculation="Sum">
+		<variableExpression><![CDATA[$V{RiaAliquo1}]]></variableExpression>
+	</variable>
+	<variable name="totale_imponibile" class="java.lang.Double" incrementType="Group" incrementGroup="Gruppo1" calculation="Sum">
+		<variableExpression><![CDATA[$V{WkPrezzo1}]]></variableExpression>
+	</variable>
+	<group name="Gruppo1">
+		<groupExpression><![CDATA[$F{RiaAliquo}]]></groupExpression>
+		<groupFooter>
+			<band height="12">
+				<textField pattern="¤#,##0.##;¤-#,##0.##" isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="30" height="12" uuid="d575d6f0-533d-4e68-9edd-b388a6a09a77">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					</reportElement>
+					<box>
+						<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="8" isBold="false"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{codice_esenzione}.equals("") ? $F{CodIva}  : $P{codice_esenzione}]]></textFieldExpression>
+				</textField>
+				<textField pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="120" y="0" width="80" height="12" uuid="0afce088-1928-4f6b-ac7b-633943450414">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					</reportElement>
+					<box rightPadding="0">
+						<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="false"/>
+						<paragraph rightIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{WkPrezzo1}]]></textFieldExpression>
+				</textField>
+				<textField evaluationTime="Group" evaluationGroup="Gruppo1" pattern="#,##0.00" isBlankWhenNull="true">
+					<reportElement x="200" y="0" width="69" height="12" uuid="1060403d-9886-4d84-bec7-75834a98b38c">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					</reportElement>
+					<box>
+						<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					</box>
+					<textElement textAlignment="Right" verticalAlignment="Middle">
+						<font size="8" isBold="false"/>
+						<paragraph rightIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{RiaAliquo1}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="120" y="0" width="23" height="12" uuid="a9916393-dcd5-4800-ab76-49657dbceb88">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="false"/>
+						<paragraph leftIndent="3"/>
+					</textElement>
+					<text><![CDATA[EUR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="200" y="0" width="23" height="12" uuid="8ffbf744-559b-45ca-a7d8-57916d77213a">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					</reportElement>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="false"/>
+						<paragraph leftIndent="3"/>
+					</textElement>
+					<text><![CDATA[EUR]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="30" y="0" width="90" height="12" uuid="fc40aa40-6653-48f4-b5cf-39de49996a3f">
+						<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+						<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+					</reportElement>
+					<box>
+						<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font size="8" isBold="false"/>
+						<paragraph leftIndent="3"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$P{codice_esenzione}.equals("") ? $F{RiaDescri} : $P{descrizione_esenzione}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<pageHeader>
+		<band height="10">
+			<staticText>
+				<reportElement x="0" y="0" width="30" height="10" uuid="cb1c348c-c12a-4b87-93a0-693ea533e03b">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[C.IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="30" y="0" width="90" height="10" uuid="466b98b0-19a4-4b8a-b0d4-2d278f491091">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Descrizione IVA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="0" width="80" height="10" uuid="0d9c7678-9e2c-480a-b905-96ef53f1cbd0">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[Imponibile]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="69" height="10" uuid="0b2a24fc-dd19-4bf3-87a6-2d670e2db375">
+					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
+				</reportElement>
+				<box>
+					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="6" isBold="true"/>
+					<paragraph leftIndent="5"/>
+				</textElement>
+				<text><![CDATA[I.V.A.]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+</jasperReport>
