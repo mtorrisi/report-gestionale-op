@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2017-08-07T11:54:34 -->
+<!-- 2017-08-10T09:23:42 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="castelletto_iva1" language="groovy" pageWidth="269" pageHeight="50" columnWidth="269" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="42899ac0-dea6-476c-8f6d-28e88bf510ec">
 	<property name="com.jaspersoft.studio.unit." value="pixel"/>
 	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
@@ -42,10 +42,11 @@
 	<field name="RiaAliquo" class="java.lang.Double"/>
 	<field name="RiaDescri" class="java.lang.String"/>
 	<variable name="WkPrezzo1" class="java.lang.Double" resetType="Group" resetGroup="Gruppo1" calculation="Sum">
-		<variableExpression><![CDATA[$F{WkPesnet} * $F{WkPrezzo} *  (1 - ($F{sconto1} * 0.01))]]></variableExpression>
+		<variableExpression><![CDATA[$F{WkPesnet} != 0 ?  $F{WkPesnet} * $F{WkPrezzo} *  (1 - ($F{sconto1} * 0.01)) : $F{WkPrezzo} *  (1 - ($F{sconto1} * 0.01))]]></variableExpression>
 	</variable>
 	<variable name="RiaAliquo1" class="java.lang.Double" resetType="Group" resetGroup="Gruppo1" calculation="Sum">
-		<variableExpression><![CDATA[$P{codice_esenzione}.equals("") ? $F{WkPesnet} * $F{WkPrezzo} *  (1 - ($F{sconto1} * 0.01)) * $F{RiaAliquo} * 0.01 : $F{WkPesnet} * $F{WkPrezzo} *  (1 - ($F{sconto1} * 0.01)) *  $P{aliquota} * 0.01]]></variableExpression>
+		<variableExpression><![CDATA[$P{codice_esenzione}.equals("") ? ($F{WkPesnet} != 0 ? $F{WkPesnet} * $F{WkPrezzo} *  (1 - ($F{sconto1} * 0.01)) * $F{RiaAliquo} * 0.01 : $F{WkPrezzo} *  (1 - ($F{sconto1} * 0.01)) * $F{RiaAliquo} * 0.01) : ($F{WkPesnet} !=0 ? $F{WkPesnet} * $F{WkPrezzo} *  (1 - ($F{sconto1} * 0.01)) *  $P{aliquota} * 0.01 : $F{WkPrezzo} *  (1 - ($F{sconto1} * 0.01)) *  $P{aliquota} * 0.01)
+]]></variableExpression>
 	</variable>
 	<variable name="totale_iva" class="java.lang.Double" incrementType="Group" incrementGroup="Gruppo1" calculation="Sum">
 		<variableExpression><![CDATA[$V{RiaAliquo1}]]></variableExpression>
