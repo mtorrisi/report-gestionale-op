@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2017-08-10T09:50:11 -->
+<!-- 2017-08-10T15:09:23 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ddt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e3b4f04-7b69-4ed1-bcc0-bca4115e4ff1">
 	<property name="ireport.zoom" value="1.126972201352371"/>
 	<property name="ireport.x" value="0"/>
@@ -1374,6 +1374,17 @@
 				</textElement>
 				<textFieldExpression><![CDATA[$F{descrDocIVA} != null ? $F{descrDocIVA} : ""]]></textFieldExpression>
 			</textField>
+			<textField>
+				<reportElement x="210" y="40" width="70" height="48" uuid="4edd7104-5cf9-4929-a594-744ba72d835b"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<lastPageFooter>
@@ -1850,6 +1861,7 @@
 				<reportElement x="281" y="31" width="269" height="58" uuid="b10a42fc-57f0-40f1-8ab2-1a934130b1b7">
 					<property name="com.jaspersoft.studio.unit.y" value="pixel"/>
 					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
 				</reportElement>
 				<subreportParameter name="year">
 					<subreportParameterExpression><![CDATA[$P{year}]]></subreportParameterExpression>
@@ -1877,6 +1889,17 @@
 				<returnValue subreportVariable="totale_imponibile" toVariable="totale_imponibile"/>
 				<subreportExpression><![CDATA["./castelletto_iva.jasper"]]></subreportExpression>
 			</subreport>
+			<textField>
+				<reportElement x="210" y="40" width="70" height="48" uuid="7317e814-f28f-4746-9151-a0591022021d"/>
+				<box>
+					<rightPen lineWidth="1.0" lineColor="#CCCCCC"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Bottom">
+					<font size="8" isBold="false"/>
+					<paragraph rightIndent="5"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
 		</band>
 	</lastPageFooter>
 	<summary>
