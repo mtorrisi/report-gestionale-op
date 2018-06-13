@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2017-08-10T15:10:02 -->
+<!-- 2018-06-13T12:21:03 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ddt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e3b4f04-7b69-4ed1-bcc0-bca4115e4ff1">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
@@ -124,6 +124,7 @@
 	<field name="progressivo" class="java.lang.Long"/>
 	<field name="nomCombinata" class="java.lang.Double"/>
 	<field name="codiceIva" class="java.lang.String"/>
+	<field name="codice_iva" class="java.lang.String"/>
 	<field name="descrImballo" class="java.lang.String"/>
 	<field name="unitMisImballo" class="java.lang.String"/>
 	<field name="codiceBancaApp" class="java.lang.String"/>
@@ -762,7 +763,7 @@
 					<paragraph rightIndent="5"/>
 				</textElement>
 				<textFieldExpression><![CDATA[//($F{prezzo} != 0) ? (($F{codiceEsenzione} != "") ? $F{codiceEsenzione} : "04") : ""
-($F{prezzo} != 0) ? (($F{codiceEsenzione} != "") ? $F{codiceEsenzione} : $F{codiceIva}) : ""]]></textFieldExpression>
+($F{prezzo} != 0) ? (($F{codiceEsenzione}!=null && $F{codiceEsenzione} != "") ? $F{codiceEsenzione} : $F{codiceIva}  != null ? $F{codiceIva} : $F{codice_iva}  ) : ""]]></textFieldExpression>
 			</textField>
 		</band>
 		<band height="25">
