@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.3.0.final using JasperReports Library version 6.3.0  -->
-<!-- 2018-06-08T13:09:49 -->
+<!-- 2018-06-22T12:57:51 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ddt" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0e3b4f04-7b69-4ed1-bcc0-bca4115e4ff1">
 	<property name="ireport.zoom" value="1.126972201352371"/>
 	<property name="ireport.x" value="0"/>
@@ -191,7 +191,9 @@
 				<reportElement x="470" y="293" width="1" height="350" forecolor="#CCCCCC" uuid="ca976591-2d2c-4f0f-9892-ba02297cb94f"/>
 			</line>
 			<line>
-				<reportElement x="535" y="293" width="1" height="350" forecolor="#CCCCCC" uuid="246b8df1-6fdb-4bed-a49f-d0bae78eaba7"/>
+				<reportElement x="530" y="293" width="1" height="350" forecolor="#CCCCCC" uuid="246b8df1-6fdb-4bed-a49f-d0bae78eaba7">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+				</reportElement>
 			</line>
 		</band>
 	</background>
@@ -643,7 +645,9 @@
 				<text><![CDATA[Cod. Articolo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="469" y="0" width="65" height="20" uuid="c7323abf-3e8f-439c-b734-7e890577c1c9"/>
+				<reportElement x="469" y="0" width="60" height="20" uuid="c7323abf-3e8f-439c-b734-7e890577c1c9">
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -653,7 +657,10 @@
 				<text><![CDATA[Importo]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="534" y="0" width="20" height="20" uuid="6a425868-8ef8-4d1e-8a09-63cdeb2eb9c9"/>
+				<reportElement x="529" y="0" width="25" height="20" uuid="6a425868-8ef8-4d1e-8a09-63cdeb2eb9c9">
+					<property name="com.jaspersoft.studio.unit.x" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="pixel"/>
+				</reportElement>
 				<box>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
 				</box>
@@ -767,7 +774,7 @@
 				<textFieldExpression><![CDATA[$F{prezzo} != 0 ? $F{prezzo} : ""]]></textFieldExpression>
 			</textField>
 			<textField pattern="###0.00;-###0.00">
-				<reportElement x="469" y="0" width="65" height="25" uuid="d0f19203-30cb-488a-bda5-753ba8d263dc"/>
+				<reportElement x="469" y="0" width="60" height="25" uuid="d0f19203-30cb-488a-bda5-753ba8d263dc"/>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
@@ -779,7 +786,7 @@
 				<textFieldExpression><![CDATA[$F{prezzo} != 0 ? ($F{prezzo} * $F{pesoNetto}) - (($F{prezzo} * $F{pesoNetto}) * ($F{sconto1} / 100)) : ""]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="534" y="0" width="20" height="25" uuid="032aa88c-ec1a-49ee-a5fd-d8f8a8e388fd"/>
+				<reportElement x="529" y="0" width="25" height="25" uuid="032aa88c-ec1a-49ee-a5fd-d8f8a8e388fd"/>
 				<box>
 					<leftPen lineWidth="0.0" lineColor="#CCCCCC"/>
 					<rightPen lineWidth="0.0" lineColor="#CCCCCC"/>
